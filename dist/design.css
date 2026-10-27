@@ -2172,3 +2172,16 @@ input[type="file"]::file-selector-button { font:inherit; padding:8px 12px; margi
   .recommendation-item:nth-child(n+2) { display:none; }
   .recommendation-heading .text-link { white-space:nowrap; flex-shrink:0; }
 }
+
+/* Quiet, opt-in personalization and focused decision copy. */
+.personalization-option { margin:12px 0; font-size:14px; color:var(--muted); }
+.personalization-option summary { cursor:pointer; width:fit-content; min-height:44px; padding:12px 0; }
+.personalization-option p { max-width:620px; margin:4px 0 10px; }
+.personalization-option .text-link { min-height:44px; }
+.decision-facts { margin:18px 0; }
+.proposed-measures { margin:28px 0; padding-block:20px; border-block:1px solid var(--line); }
+.proposed-measures h2 { font-size:26px; font-weight:600; margin-bottom:12px; }
+.proposed-measures p { max-width:850px; color:var(--muted); line-height:1.65; }
+.footer-disclosure { color:var(--muted); font-size:12px; line-height:1.6; max-width:520px; }
+.voucher-masthead > span { max-width:230px; }
+@media(max-width:600px) { .transfer-art > span { font-size:9px; } }

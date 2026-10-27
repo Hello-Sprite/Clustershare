@@ -25,7 +25,7 @@ Dedicated URL-based views:
 
 - `#home`: introduction and the homepage journey.
 - `#inventory`: searchable catalog, five categories, school/condition/handoff/type filters, not-yet-requested filter, active filter chips, sorting, and eight-item pagination.
-- `#items?tab=requests`: review transfer requests and pending swap proposals; reopen printable slips.
+- `#items?tab=requests`: review transfer requests and pending swap proposals; reopen printable Transfer Custody Records.
 - `#items?tab=saved`: saved resources and save/unsave actions.
 - `#items?tab=listed`: resources created in this browser.
 - `#courier`: two illustrative route plans, handoff preparation guidance, and a feed of actual browser-local listing/request records.
@@ -35,9 +35,9 @@ Browse state appears in inventory URLs and is retained while opening/closing det
 
 ## Complete local workflows
 
-Create a listing in three steps with quantity, condition, category, school, room, educator, transfer/swap type, handoff method, and optional replacement estimate, notes, and an optional photo selected from the device. Edit listings or archive and restore them in Your Items. Listings persist locally and have a printable listing slip. Selected JPEG/PNG/WebP photos are resized to at most 1000px and saved as a bounded JPEG in existing browser-local storage. Category-specific illustrations are used without a photo. Legacy HTTPS photos remain readable.
+Create a listing in three steps with quantity, condition, category, school, room, educator, transfer/swap type, handoff method, and optional replacement estimate, notes, and an optional photo selected from the device. Edit listings or archive and restore them in Your Items. Listings persist locally and have a printable listing summary. Selected JPEG/PNG/WebP photos are resized to at most 1000px and saved as a bounded JPEG in existing browser-local storage. Category-specific illustrations are used without a photo. Legacy HTTPS photos remain readable.
 
-Requests keep three steps: identity, destination, and review/handoff. The last step summarizes the entered details before submission. Bulky resources require self-pickup. Transfers stay requested; swap proposals stay pending. Users can revise or withdraw active records. Withdrawal permits a new request while retaining history. Duplicate active requests for the same resource are prevented. A proposed voucher includes a random tracking hash, campus codes, and an illustrative barcode; it is not district authorization or a real tracking service.
+Requests keep three steps: identity, destination, and review/handoff. The last step summarizes the entered details before submission. Bulky resources require self-pickup. Transfers stay requested; swap proposals stay pending. Users can revise or withdraw active records. Withdrawal permits a new request while retaining history. Duplicate active requests for the same resource are prevented. A proposed Transfer Custody Record includes a random tracking hash, campus codes, and an illustrative barcode; it is not district authorization or a real tracking service.
 
 The `clustershare-v1` storage key is retained. Legacy claims and saves survive migration, with a listings array and explicit request statuses added. Malformed nested records are retained in an unrecognizedRecords recovery field while valid records remain usable. Writes compare the latest storage snapshot, and other-tab changes refresh idle views or block stale form submission. Unreadable data is left untouched and the interface indicates session-only operation. Failed writes produce an explicit message. Reset requires a deliberate confirmation and is never run automatically. Theme preference is stored separately.
 
@@ -54,7 +54,7 @@ Amphi supplied a reference for section rhythm and progression. Its assets, wordi
 1. Open Home, explain the free-sharing purpose, then choose **Browse free resources**.
 2. Search for `probe`, choose South Forsyth High School and courier eligibility, then open the Vernier kit.
 3. Save the resource, start its request, enter demo identity/destination details, and review step 3 before submitting.
-4. Inspect the generated routing stamp and barcode; use **Print voucher**, then **View your items**. Refresh to demonstrate persistence.
+4. Inspect the generated routing stamp and barcode; use **Print Transfer Custody Record**, then **View your items**. Refresh to demonstrate persistence.
 5. Create a local listing and open **Your listings**. Finish in **Impact** to explain why requested value is distinct from recirculated estimates.
 
 See [VERIFICATION.md](VERIFICATION.md) for checks and limitations. Desktop/mobile previews and an example voucher are saved in the project root.
@@ -73,7 +73,7 @@ See [VERIFICATION.md](VERIFICATION.md) for checks and limitations. Desktop/mobil
 
 ## Refined judging walkthrough
 
-Browse → filter by school and handoff → open a resource image → save → submit a three-step demo request → revise the room → print the illustrative voucher → withdraw and observe availability/value update. Create a three-step listing, edit it, archive and restore it, then explain route coverage and the itemized Impact calculation. No real school is contacted.
+Browse → filter by school and handoff → open a resource image → save → submit a three-step demo request → revise the room → print the proposed Transfer Custody Record → withdraw and observe availability/value update. Create a three-step listing, edit it, archive and restore it, then explain route coverage and the itemized Impact calculation. No real school is contacted.
 
 ## Earlier resource-first visual refinement (historical)
 

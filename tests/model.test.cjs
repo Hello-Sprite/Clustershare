@@ -436,3 +436,26 @@ test('optional local photos survive persistence; executable and oversized images
   assert.equal(noPhoto.listings[0].image,'assets/resource-category-2.svg');
   assert.equal(state.listings[0].image,photo);
 });
+
+test('blank or omitted replacement estimates normalize to zero and survive request calculations', () => {
+  for (const unitValue of ['', '  ', undefined, null, 0, '0']) {
+    let state = M.saveListing(M.normalizeState({}), {...listingDraft, unitValue}, schools, 'optional-value');
+    const asset = state.listings[0];
+    assert.equal(asset.unitValue, 0);
+    assert.equal(asset.value, 0);
+    state.claims.push(M.createRequest(asset, identity, state, schools, 'OPTIONAL', 'today'));
+    state = M.normalizeState(JSON.parse(JSON.stringify(state)));
+    assert.equal(M.requestedValue(state.listings, state), 0);
+    assert.equal(M.valueBreakdown(state.listings, state).length, 1);
+  }
+  for (const unitValue of ['not a number', -1, Infinity])
+    assert.throws(() => M.saveListing(M.normalizeState({}), {...listingDraft, unitValue}, schools, 'invalid-value'), /replacement estimate/);
+});
+test('pending and withdrawn request statuses remain distinct from swap listing availability', () => {
+  const swap = seed.find(a => a.swap);
+  const state = M.normalizeState({});
+  const request = M.createRequest(swap, {...identity, method:'Self-pickup', offer:'Demo classroom equipment'}, state, schools, 'SWAP-LABEL', 'today');
+  assert.equal(M.requestLabel(request), 'Swap proposed · pending');
+  state.claims.push(request);
+  assert.equal(M.requestLabel(M.withdrawRequest(state,request.id).claims[0]), 'Withdrawn');
+});

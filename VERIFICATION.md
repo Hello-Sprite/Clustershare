@@ -95,3 +95,13 @@ Limits: no physical print job or full screen-reader audit was performed. OS redu
 - Isolated browser QA exercised typo search, three-step request, saved voucher, local Impact total ($1,100 for the test calculator request), optional photo selection, resizing to 1000px, JPEG persistence through refresh, owner-only card actions, and archive/restore.
 - Phone filter and notification drawers inspected; the one-row notification panel measured about 256px tall, with scrolling only when needed. Handoff instructions consolidated and sample routes collapsed; illustrative Impact numbers are separately disclosed.
 - Limitations: no physical printing or full screen-reader certification; remote vendor photos can still fail and fall back to local illustrations. Photo storage remains browser-local and subject to quota, with existing session-only failure feedback.
+
+## UX, copy, and footer polish — October 27
+
+- Clean main checkout matched remote source before editing; no repository-specific AGENTS.md found. No existing copyright notice was present, so no copyright wording/year was replaced or invented. Header disclosure consolidated into one readable footer line.
+- Personalization banners removed; Inventory provides a native collapsed details control. Keyboard Space toggles it; preference dialog opens, Escape closes it and restores focus. Home finder and profile remain available without repeated prompts.
+- Blank replacement estimate saved in isolated browser origin, reloaded, and displayed as a finite $0 complete-lot estimate. New model tests cover blank, whitespace, omitted, null, zero, and invalid inputs.
+- Existing resource facts grouped by quantity/included items, condition, supplied notes, and limitations. No catalog facts or activity fabricated.
+- Proposed Transfer Custody Record wording verified in a real test swap proposal. Actual pending approval and withdrawn request states remain unchanged.
+- Home, Inventory, Handoff Planning, Impact, Saved Resources, footer, and custody record checked at 390, 768, and 1440px: no document or dialog horizontal overflow. Light/dark styling, optional form field, empty-state actions, and clearly untracked proposed Impact measures reviewed.
+- Build, TypeScript, and all 34 tests pass, including existing contrast checks; diff whitespace check passes. No compatibility issue observed at tested widths. Physical printing and full screen-reader certification not performed. All new browser records were isolated to 127.0.0.1:5180; existing localhost and published-origin data were untouched.

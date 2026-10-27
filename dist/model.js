@@ -232,7 +232,7 @@
   function saveListing(state, data, schools, id) {
     const existing = state.listings.find((a) => key(a.id) === key(id)),
       count = Number(data.count),
-      unitValue = Number(data.unitValue),
+      unitValue = data.unitValue == null || String(data.unitValue).trim() === "" ? 0 : Number(data.unitValue),
       cat = Number(data.cat);
     if (
       !["title", "unit", "teacher", "room"].every(
