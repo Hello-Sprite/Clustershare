@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Share surplus supplies, books and equipment with Forsyth County educators. ClusterShare is an independent FBLA browser-based demonstration."
+    />
+    <title>ClusterShare — Made for the next classroom</title>
+    <script>
+      try {
+        let t = localStorage.getItem("clustershare-theme");
+        document.documentElement.dataset.theme =
+          t === "dark" || t === "light"
+            ? t
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      } catch {}
+    </script>
+    <link rel="preload" href="assets/fonts/ibm-plex-sans-400.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="assets/fonts/ibm-plex-sans-600.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="style.css?v=735d0735f60d" />
+    <link rel="stylesheet" href="design.css?v=735d0735f60d" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <div class="project-banner">
+      Independent FBLA student project
+      <span aria-hidden="true">·</span> Browser-based demonstration
+    </div>
+    <header>
+      <a
+        class="brand"
+        href="#home"
+        data-view="home"
+        aria-label="ClusterShare home"
+        ><span class="commons-mark" aria-hidden="true"
+          ><svg viewBox="0 0 48 48" fill="none">
+            <path
+              d="M7 13.5 23 8l18 5.5v25L24 33 7 38.5Z"
+              fill="currentColor"
+            />
+            <path
+              d="M24 15v18M12 18l7-2.5M12 23l7-2.5"
+              stroke="var(--mark-line)"
+              stroke-width="1.5"
+            />
+            <path
+              d="m29 21 6-2v7m0-7-7 10"
+              stroke="var(--mark-line)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg></span
+        ><span class="brand-word">ClusterShare</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#home" data-view="home">Home</a
+        ><a href="#inventory" data-view="inventory">Inventory</a
+        ><a href="#items" data-view="items"
+          >Your Items <span id="claimCount">0</span></a
+        ><a href="#courier" data-view="courier">Handoff Planning</a
+        ><a href="#ledger" data-view="ledger">Impact</a>
+      </nav>
+      <div class="account">
+        <button
+          id="themeSwitch"
+          class="theme-switch"
+          role="switch"
+          aria-checked="false"
+          aria-label="Dark mode"
+        >
+          <span class="theme-symbol" aria-hidden="true">◐</span
+          ><span class="theme-name">Light</span></button
+        ><button class="bell icon-button" id="alerts" aria-label="Demo notices">
+          <svg
+            viewBox="0 0 24 24"
+            width="21"
+            height="21"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5l-2 3Z" />
+            <path d="M10 20h4" /></svg
+          ><i></i></button
+        ><button
+          class="avatar icon-button"
+          id="profile"
+          aria-label="Demonstration educator profile"
+        >
+          JD
+        </button>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><section class="startup-state" role="status"><h1>Opening ClusterShare…</h1><p>Your classroom resources will appear here.</p><noscript><p>Enable JavaScript to browse this browser-local demonstration. Your saved records stay on this device.</p></noscript></section></main>
+    <footer>
+      <div>
+        <a class="brand footer-brand" href="#home">ClusterShare</a>
+        <p>Taught here. Shared here. Used again.</p>
+        <p class="footer-disclosure">
+          An independent FBLA student project. Not a Forsyth County Schools
+          service.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#inventory">Free resources</a
+        ><a href="#courier">Handoff planning</a
+        ><a href="#ledger">Impact & estimates</a
+        ><button id="sources">Sources & methodology</button
+        ><button id="reset">Reset demo data</button>
+      </div>
+    </footer>
+    <dialog id="drawer" aria-labelledby="drawerTitle"></dialog>
+    <div id="toast" role="status" hidden></div>
+    <script src="startup.js?v=735d0735f60d"></script>
+    <script defer fetchpriority="low" src="reveal.js?v=refinement-4"></script>
+    <script src="app-runtime.js?v=735d0735f60d"></script>
+  </body>
+</html>
