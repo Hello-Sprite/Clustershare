@@ -15,18 +15,22 @@ function bindFinder() {
 }
 function startHero() {
   heroCleanup();
-  const slides=[...document.querySelectorAll('[data-slide]')];if(!slides.length)return;
-  let index=0, paused=reducedMotion.matches, hovering=false, focused=false;
-  const container=$('.rotating-showcase'), pause=$('#hero-pause');
-  const update=()=>{pause.textContent=paused?'Play':'Pause';pause.setAttribute('aria-label',`${paused?'Play':'Pause'} resource preview`);};
-  const show=n=>{slides[index].hidden=true;index=(n+slides.length)%slides.length;slides[index].hidden=false;$('#hero-position').textContent=`${index+1} / ${slides.length}`;};
-  $('#hero-prev').onclick=()=>show(index-1);$('#hero-next').onclick=()=>show(index+1);
-  pause.onclick=()=>{paused=!paused;update();};
-  container.onmouseenter=()=>hovering=true;container.onmouseleave=()=>hovering=false;
-  container.onfocusin=()=>focused=true;container.onfocusout=e=>focused=container.contains(e.relatedTarget);
-  const change=()=>{if(reducedMotion.matches){paused=true;update();}};reducedMotion.addEventListener('change',change);
-  const timer=setInterval(()=>{if(!paused&&!hovering&&!focused&&!document.hidden&&!reducedMotion.matches)show(index+1);},7000);
-  heroCleanup=()=>{clearInterval(timer);reducedMotion.removeEventListener('change',change);};update();
+  const slides = [...document.querySelectorAll('[data-slide]')];
+  if (!slides.length) return;
+  let index = 0;
+  const show = n => {
+    slides[index].hidden = true;
+    index = (n + slides.length) % slides.length;
+    slides[index].hidden = false;
+    $('#hero-position').textContent = `${index + 1} / ${slides.length}`;
+  };
+  $('#hero-prev').onclick = () => show(index - 1);
+  $('#hero-next').onclick = () => show(index + 1);
+  // Continue during hover/focus; skip hidden tabs and honor the system motion preference.
+  const timer = setInterval(() => {
+    if (!document.hidden && !reducedMotion.matches) show(index + 1);
+  }, 7000);
+  heroCleanup = () => clearInterval(timer);
 }
 function openProfile() {
   const p=state.preferences||{};
@@ -42,16 +46,53 @@ function renderRecommendations() {
   if ($('#edit-preferences')) $('#edit-preferences').onclick = openProfile;
 }
 
-let sharingObserver;
+let sharingCleanup = () => {};
 function startSharingAnimation() {
-  sharingObserver?.disconnect();
-  const section = $('#sharing');
-  if (!section || reducedMotion.matches || !('IntersectionObserver' in window)) return;
-  sharingObserver = new IntersectionObserver(entries => {
-    if (entries.some(entry => entry.isIntersecting)) {
-      section.classList.add('sharing-animate');
-      sharingObserver.disconnect();
-    }
-  }, {threshold:.15});
-  sharingObserver.observe(section);
+  sharingCleanup();
+  const section = $('#sharing'), track = section?.querySelector('.handoff-track');
+  if (!track || reducedMotion.matches || (!('IntersectionObserver' in window) || !('ResizeObserver' in window))) return;
+  const circles = [...track.querySelectorAll('.step-number')];
+  let svg, inView = false, frame;
+  const update = () => {
+    const paused = !inView || document.hidden || reducedMotion.matches;
+    section.classList.toggle('flight-paused', paused);
+    if (svg) paused ? svg.pauseAnimations() : svg.unpauseAnimations();
+  };
+  const draw = () => {
+    cancelAnimationFrame(frame);
+    svg?.remove(); section.classList.remove('flight-ready');
+    const bounds = track.getBoundingClientRect();
+    const points = circles.map(circle => {
+      const r = circle.getBoundingClientRect();
+      return [r.left - bounds.left + r.width / 2, r.top - bounds.top + r.height / 2];
+    });
+    const path = points.map(([x,y],i) => `${i ? 'L' : 'M'} ${x} ${y}`).join(' ');
+    const linePath = points.slice(1).map((end,i) => {
+      const start=points[i], length=Math.hypot(end[0]-start[0],end[1]-start[1]);
+      const dx=(end[0]-start[0])/length*22, dy=(end[1]-start[1])/length*22;
+      return `M ${start[0]+dx} ${start[1]+dy} L ${end[0]-dx} ${end[1]-dy}`;
+    }).join(' ');
+    const firstLeg = Math.hypot(points[1][0]-points[0][0],points[1][1]-points[0][1]);
+    const secondLeg = Math.hypot(points[2][0]-points[1][0],points[2][1]-points[1][1]);
+    const middle = firstLeg / (firstLeg + secondLeg);
+    track.insertAdjacentHTML('afterbegin', `<svg class="sharing-flight" viewBox="0 0 ${bounds.width} ${bounds.height}" aria-hidden="true" focusable="false"><path d="${linePath}" fill="none" stroke="currentColor" stroke-width="1.5"/><g><path d="M -11 -7 L 12 0 L -11 7 L -6 0 Z" fill="#2857B7" stroke="white" stroke-width="1.2"><animate attributeName="fill" values="#1C784A;#2857B7;#1C784A;#2857B7;#1C784A;#1C784A" keyTimes="0;.1;.45;.55;.9;1" calcMode="discrete" dur="9s" repeatCount="indefinite"/></path><animateMotion path="${path}" dur="9s" rotate="auto" keyPoints="0;0;${middle};${middle};1;1" keyTimes="0;.1;.45;.55;.9;1" calcMode="linear" repeatCount="indefinite"/></g></svg>`);
+    svg = track.querySelector('.sharing-flight');
+    svg.pauseAnimations(); svg.setCurrentTime(0);
+    frame = requestAnimationFrame(() => { section.classList.add('flight-ready'); update(); });
+  };
+  const observer = new IntersectionObserver(entries => {
+    inView = entries.some(entry => entry.isIntersecting); update();
+  }, {threshold:.1});
+  observer.observe(section);
+  const resize = new ResizeObserver(draw); resize.observe(track);
+  const motionChange = () => { if (reducedMotion.matches) update(); else draw(); };
+  document.addEventListener('visibilitychange', update);
+  reducedMotion.addEventListener('change', motionChange);
+  sharingCleanup = () => {
+    observer.disconnect(); resize.disconnect(); cancelAnimationFrame(frame); svg?.remove();
+    section.classList.remove('flight-ready','flight-paused');
+    document.removeEventListener('visibilitychange', update);
+    reducedMotion.removeEventListener('change', motionChange);
+  };
+  draw();
 }

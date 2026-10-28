@@ -89,3 +89,7 @@ Re.vert was visually reviewed for product scale, serif hierarchy, and warm secti
 - 14px lift, 380ms ease-out, 40ms optional stagger capped at 120ms, no blur. Intersection threshold 0.2, once per section; seen section IDs stay visible on hash-route returns. OS reduced motion skips enhancement and has a CSS visibility fallback.
 
 References: [Re.vert](https://www.wix.com/demone2/wh-re-vert), [Reveal pattern](https://21st.dev/@asanshay/components/reveal). The component is an original adaptation of the requested pattern, not a copied account-gated source file.
+
+## Donation impact and sharing flight
+
+Impact now compares the estimated purchase price of real catalog examples with a $0 donation acquisition price, explains the intended email-to-catalog workflow benefit, and keeps local request estimates distinct from completed savings. Research links are in Sources & Methodology. The footer blends into the page canvas. Sharing uses native SVG/CSS animation, paused offscreen or in hidden tabs and disabled for reduced motion. Preview rotation has previous/next controls and no Pause button.

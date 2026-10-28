@@ -83,3 +83,9 @@ check("Coral on slate", "#b94a35", "#f3f6f8");
 check("Dark coral", "#ffb7a6", "#101e2a");
 check("Gold status text", "#705212", "#f7edcf");
 });
+test('completed sharing steps keep readable white labels on the animated green state', () => {
+  const design = fs.readFileSync('dist/design.css', 'utf8');
+  const green = design.match(/--sharing-green:\s*(#[\da-fA-F]+)/)?.[1];
+  assert.ok(green, 'Missing sharing completion color');
+  check('Completed step label', '#ffffff', green);
+});

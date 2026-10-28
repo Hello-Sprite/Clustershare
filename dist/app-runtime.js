@@ -1203,7 +1203,7 @@ seed.forEach((a) => {
 })(typeof globalThis !== "undefined" ? globalThis : this);
 
 function hero() {
-  return `<section class="hero" aria-labelledby="home-title"><div class="hero-copy"><span class="eyebrow">The Forsyth classroom commons</span><h1 id="home-title">Made for the<br><em>next classroom.</em></h1><p>Share surplus classroom supplies, books, and equipment with Forsyth County educators. Find what your classroom needs, completely free.</p><div class="button-row"><a href="#inventory" class="primary">Browse free resources <span aria-hidden="true">↗</span></a><button class="secondary" data-list>List a resource</button></div><form id="home-search" class="hero-search"><label for="home-query">Find a resource</label><div><input id="home-query" name="query" placeholder="Try lab kits, books, or your school…"><button type="submit" aria-label="Search resources">↗</button></div></form><p class="free-assurance">Free classroom resources. No purchases or payments.</p><p class="fineprint">An independent student demo. No real requests are sent.</p></div><div class="hero-composition"><div class="rotating-showcase">${[0,2,3,4,5].map((n,i)=>`<button class="hero-showcase hero-slide" data-slide="${i}" ${i ? 'hidden' : ''} data-detail="${seed[n].id}" aria-label="View ${esc(seed[n].title)}"><div class="showcase-photo">${resourceImage(seed[n])}</div><div class="showcase-caption"><div><span>${esc(seed[n].school)}</span><strong>${esc(seed[n].title)}</strong></div><span>${esc(seed[n].qty)}</span></div></button>`).join("")}<div class="carousel-controls"><button id="hero-prev" aria-label="Previous resource">←</button><span id="hero-position">1 / 5</span><button id="hero-next" aria-label="Next resource">→</button><button id="hero-pause" aria-label="Pause resource preview">Pause</button></div></div></div></section>`;
+  return `<section class="hero" aria-labelledby="home-title"><div class="hero-copy"><span class="eyebrow">The Forsyth classroom commons</span><h1 id="home-title">Made for the<br><em>next classroom.</em></h1><p>Share surplus classroom supplies, books, and equipment with Forsyth County educators. Find what your classroom needs, completely free.</p><div class="button-row"><a href="#inventory" class="primary">Browse free resources <span aria-hidden="true">↗</span></a><button class="secondary" data-list>List a resource</button></div><form id="home-search" class="hero-search"><label for="home-query">Find a resource</label><div><input id="home-query" name="query" placeholder="Try lab kits, books, or your school…"><button type="submit" aria-label="Search resources">↗</button></div></form><p class="free-assurance">Free classroom resources. No purchases or payments.</p><p class="fineprint">An independent student demo. No real requests are sent.</p></div><div class="hero-composition"><div class="rotating-showcase">${[0,2,3,4,5].map((n,i)=>`<button class="hero-showcase hero-slide" data-slide="${i}" ${i ? 'hidden' : ''} data-detail="${seed[n].id}" aria-label="View ${esc(seed[n].title)}"><div class="showcase-photo">${resourceImage(seed[n])}</div><div class="showcase-caption"><div><span>${esc(seed[n].school)}</span><strong>${esc(seed[n].title)}</strong></div><span>${esc(seed[n].qty)}</span></div></button>`).join("")}<div class="carousel-controls"><button id="hero-prev" aria-label="Previous resource">←</button><span id="hero-position">1 / 5</span><button id="hero-next" aria-label="Next resource">→</button></div></div></div></section>`;
 }
 function workflow() {
   return `<section class="workflow section rounded-section" id="sharing" aria-labelledby="sharing-title"><div class="section-heading"><h2 id="sharing-title">How sharing works.</h2></div><div class="handoff-track"><div class="track-line" aria-hidden="true"></div><article><div class="handoff-art asset-tag" aria-hidden="true"><span>CLUSTERSHARE</span><b>Ready for another<br>school year.</b><small>RESOURCE / FREE</small><i class="mini-barcode"></i></div><span class="step-number">01</span><h3>Find a resource</h3><p>Browse free supplies from nearby classrooms.</p><a class="text-link" href="#inventory">Browse free resources ↗</a></article><article><div class="handoff-art transfer-art" aria-hidden="true"><span>Transfer Custody Record</span><b>$0</b><small>Origin → Destination</small><i></i><i></i><em>PROPOSED HANDOFF</em></div><span class="step-number">02</span><h3>Send a request</h3><p>Request the resource or suggest an equipment swap.</p><a class="text-link" href="#inventory">Find your next resource ↗</a></article><article><div class="handoff-art route-art" aria-hidden="true"><b>AGREE &amp; COLLECT</b><div><span>TAG</span><i>→</i><span>RECORD</span><i>→</i><span>CLASS</span></div><small>Or coordinate self-pickup</small></div><span class="step-number">03</span><h3>Plan the handoff</h3><p>Coordinate collection and any required school approval.</p><a class="text-link" href="#items">Review your requests ↗</a></article></div></section>`;
@@ -1487,12 +1487,18 @@ function listResource(id = null) {
 
 function renderLedger() {
   const rows = M.valueBreakdown([...state.listings, ...seed], state);
-  const example = seed[0];
+  const examples = seed.filter(a => [1,3,4].includes(a.id));
   main.innerHTML = pageHeading('', 'Impact', '') +
-    `<section class="impact-panel"><h2>Resources you've requested</h2><div class="impact-request-summary"><div><strong>${rows.length}</strong><span>${rows.length === 1 ? 'resource requested' : 'resources requested'}</span></div><div><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><span>estimated replacement cost</span></div></div><p class="fineprint">Requests saved in this browser, not completed transfers or verified savings.</p>${valueBreakdown()}</section>` +
-    `<section class="impact-panel impact-example"><div class="impact-example-photo">${resourceImage(example)}</div><div><h2>Useful equipment, another classroom.</h2><h3>${esc(example.title)}</h3><p>${esc(example.qty)}</p><p class="impact-free">Free to request</p><p>A shared set could equip another classroom before new supplies are purchased.</p><p class="fineprint">Example listing · estimated replacement cost ${money(example.value)}.</p></div></section>` +
-    `<section class="impact-panel"><h2>How the value is counted</h2><p>Quantity × estimated cost per item. Only active transfer requests are included; pending swaps and withdrawn requests are excluded.</p><details class="impact-method"><summary>How success could be measured</summary><p>In a future pilot: completed handoffs confirmed by schools, requests fulfilled, and time to find a resource. These outcomes are not tracked in this demo.</p></details><button class="secondary" data-sources>Sources & methodology ↗</button></section>`;
-  bindCommon();
+    `<section class="impact-intro"><h2>More for your classroom.<br>Less to buy.</h2><p>A spare set in one classroom could fill a need in another. Find resources teachers can donate before spending on replacements.</p><a class="primary" href="#inventory">Find free classroom resources ↗</a></section>` +
+    `<section class="impact-panel donation-panel" aria-labelledby="donation-title"><div class="donation-heading"><div><h2 id="donation-title">See what sharing could keep in a classroom budget.</h2><p>Compare buying a replacement with receiving the same resource as a free donation.</p></div><label for="impact-resource">Explore a catalog example<select id="impact-resource">${examples.map(a=>`<option value="${a.id}">${esc(a.title)}</option>`).join('')}</select></label></div><div id="donation-comparison"></div><p class="fineprint">Illustrative catalog estimates, not verified savings. Donation acquisition price is $0; pickup or delivery costs are excluded. Availability and school approval must be confirmed.</p></section>` +
+    `<section class="impact-panel" aria-labelledby="discovery-title"><h2 id="discovery-title">A shared catalog beats starting another email chain.</h2><div class="discovery-comparison"><article><h3>Scattered emails</h3><ol><li>Ask around and wait for replies.</li><li>Follow up for photos, quantity, and condition.</li><li>Piece together where the resource is and whether it fits.</li></ol></article><article><h3>Browse with ClusterShare</h3><ol><li>Search resources across the listed schools.</li><li>Compare photos, quantities, and condition in one place.</li><li>Request a match, then arrange an approved handoff.</li></ol></article></div><p class="fineprint">The proposed benefit is less back-and-forth before a request. Time saved is not measured by this demo; school coordination still happens outside it.</p></section>` +
+    `<section class="impact-panel"><h2>Your requests: the potential, not the result.</h2><div class="impact-request-summary"><div><strong>${rows.length}</strong><span>${rows.length === 1 ? 'resource requested' : 'resources requested'}</span></div><div><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><span>estimated replacement cost of those resources</span></div></div>${valueBreakdown()}<details class="impact-method"><summary>How to read these figures</summary><p>Quantity × estimated cost per item. Only active transfer requests are included; pending swaps and withdrawn requests are excluded. A request is not a completed donation or verified saving.</p></details><button class="secondary" data-sources>Sources & methodology ↗</button></section>`;
+  const show = () => {
+    const a = examples.find(a=>String(a.id)===$('#impact-resource').value);
+    $('#donation-comparison').innerHTML = `<div class="donation-example"><div class="donation-photo">${resourceImage(a)}</div><div><h3>${esc(a.title)}</h3><p>${esc(a.qty)}</p><figure class="donation-chart" aria-label="Estimated replacement cost ${money(a.value)} compared with a free donation acquisition price of $0"><div class="cost-row"><div><span>Buy a replacement</span><strong>${money(a.value)}</strong></div><div class="cost-track"><span class="replacement-bar"></span></div></div><div class="cost-row"><div><span>Receive a donation</span><strong>$0</strong></div><div class="cost-track"><span class="donation-zero"></span></div></div><figcaption><strong>${money(a.value)}</strong> in replacement spending could be avoided if this complete set is donated instead of purchased.</figcaption></figure></div></div>`;
+    setupImages();
+  };
+  $('#impact-resource').onchange = show; show(); bindCommon();
 }
 function valueBreakdown() {
   const rows = M.valueBreakdown([...state.listings, ...seed], state);
@@ -1521,18 +1527,22 @@ function bindFinder() {
 }
 function startHero() {
   heroCleanup();
-  const slides=[...document.querySelectorAll('[data-slide]')];if(!slides.length)return;
-  let index=0, paused=reducedMotion.matches, hovering=false, focused=false;
-  const container=$('.rotating-showcase'), pause=$('#hero-pause');
-  const update=()=>{pause.textContent=paused?'Play':'Pause';pause.setAttribute('aria-label',`${paused?'Play':'Pause'} resource preview`);};
-  const show=n=>{slides[index].hidden=true;index=(n+slides.length)%slides.length;slides[index].hidden=false;$('#hero-position').textContent=`${index+1} / ${slides.length}`;};
-  $('#hero-prev').onclick=()=>show(index-1);$('#hero-next').onclick=()=>show(index+1);
-  pause.onclick=()=>{paused=!paused;update();};
-  container.onmouseenter=()=>hovering=true;container.onmouseleave=()=>hovering=false;
-  container.onfocusin=()=>focused=true;container.onfocusout=e=>focused=container.contains(e.relatedTarget);
-  const change=()=>{if(reducedMotion.matches){paused=true;update();}};reducedMotion.addEventListener('change',change);
-  const timer=setInterval(()=>{if(!paused&&!hovering&&!focused&&!document.hidden&&!reducedMotion.matches)show(index+1);},7000);
-  heroCleanup=()=>{clearInterval(timer);reducedMotion.removeEventListener('change',change);};update();
+  const slides = [...document.querySelectorAll('[data-slide]')];
+  if (!slides.length) return;
+  let index = 0;
+  const show = n => {
+    slides[index].hidden = true;
+    index = (n + slides.length) % slides.length;
+    slides[index].hidden = false;
+    $('#hero-position').textContent = `${index + 1} / ${slides.length}`;
+  };
+  $('#hero-prev').onclick = () => show(index - 1);
+  $('#hero-next').onclick = () => show(index + 1);
+  // Continue during hover/focus; skip hidden tabs and honor the system motion preference.
+  const timer = setInterval(() => {
+    if (!document.hidden && !reducedMotion.matches) show(index + 1);
+  }, 7000);
+  heroCleanup = () => clearInterval(timer);
 }
 function openProfile() {
   const p=state.preferences||{};
@@ -1548,18 +1558,55 @@ function renderRecommendations() {
   if ($('#edit-preferences')) $('#edit-preferences').onclick = openProfile;
 }
 
-let sharingObserver;
+let sharingCleanup = () => {};
 function startSharingAnimation() {
-  sharingObserver?.disconnect();
-  const section = $('#sharing');
-  if (!section || reducedMotion.matches || !('IntersectionObserver' in window)) return;
-  sharingObserver = new IntersectionObserver(entries => {
-    if (entries.some(entry => entry.isIntersecting)) {
-      section.classList.add('sharing-animate');
-      sharingObserver.disconnect();
-    }
-  }, {threshold:.15});
-  sharingObserver.observe(section);
+  sharingCleanup();
+  const section = $('#sharing'), track = section?.querySelector('.handoff-track');
+  if (!track || reducedMotion.matches || (!('IntersectionObserver' in window) || !('ResizeObserver' in window))) return;
+  const circles = [...track.querySelectorAll('.step-number')];
+  let svg, inView = false, frame;
+  const update = () => {
+    const paused = !inView || document.hidden || reducedMotion.matches;
+    section.classList.toggle('flight-paused', paused);
+    if (svg) paused ? svg.pauseAnimations() : svg.unpauseAnimations();
+  };
+  const draw = () => {
+    cancelAnimationFrame(frame);
+    svg?.remove(); section.classList.remove('flight-ready');
+    const bounds = track.getBoundingClientRect();
+    const points = circles.map(circle => {
+      const r = circle.getBoundingClientRect();
+      return [r.left - bounds.left + r.width / 2, r.top - bounds.top + r.height / 2];
+    });
+    const path = points.map(([x,y],i) => `${i ? 'L' : 'M'} ${x} ${y}`).join(' ');
+    const linePath = points.slice(1).map((end,i) => {
+      const start=points[i], length=Math.hypot(end[0]-start[0],end[1]-start[1]);
+      const dx=(end[0]-start[0])/length*22, dy=(end[1]-start[1])/length*22;
+      return `M ${start[0]+dx} ${start[1]+dy} L ${end[0]-dx} ${end[1]-dy}`;
+    }).join(' ');
+    const firstLeg = Math.hypot(points[1][0]-points[0][0],points[1][1]-points[0][1]);
+    const secondLeg = Math.hypot(points[2][0]-points[1][0],points[2][1]-points[1][1]);
+    const middle = firstLeg / (firstLeg + secondLeg);
+    track.insertAdjacentHTML('afterbegin', `<svg class="sharing-flight" viewBox="0 0 ${bounds.width} ${bounds.height}" aria-hidden="true" focusable="false"><path d="${linePath}" fill="none" stroke="currentColor" stroke-width="1.5"/><g><path d="M -11 -7 L 12 0 L -11 7 L -6 0 Z" fill="#2857B7" stroke="white" stroke-width="1.2"><animate attributeName="fill" values="#1C784A;#2857B7;#1C784A;#2857B7;#1C784A;#1C784A" keyTimes="0;.1;.45;.55;.9;1" calcMode="discrete" dur="9s" repeatCount="indefinite"/></path><animateMotion path="${path}" dur="9s" rotate="auto" keyPoints="0;0;${middle};${middle};1;1" keyTimes="0;.1;.45;.55;.9;1" calcMode="linear" repeatCount="indefinite"/></g></svg>`);
+    svg = track.querySelector('.sharing-flight');
+    svg.pauseAnimations(); svg.setCurrentTime(0);
+    frame = requestAnimationFrame(() => { section.classList.add('flight-ready'); update(); });
+  };
+  const observer = new IntersectionObserver(entries => {
+    inView = entries.some(entry => entry.isIntersecting); update();
+  }, {threshold:.1});
+  observer.observe(section);
+  const resize = new ResizeObserver(draw); resize.observe(track);
+  const motionChange = () => { if (reducedMotion.matches) update(); else draw(); };
+  document.addEventListener('visibilitychange', update);
+  reducedMotion.addEventListener('change', motionChange);
+  sharingCleanup = () => {
+    observer.disconnect(); resize.disconnect(); cancelAnimationFrame(frame); svg?.remove();
+    section.classList.remove('flight-ready','flight-paused');
+    document.removeEventListener('visibilitychange', update);
+    reducedMotion.removeEventListener('change', motionChange);
+  };
+  draw();
 }
 
 /* Resize local photos before browser storage; never upload them or accept executable SVG. */
@@ -1994,7 +2041,7 @@ function render() {
 function renderView() {
   window.ClusterReveal?.dispose();
   heroCleanup();
-  sharingObserver?.disconnect();
+  sharingCleanup();
   document.title =
     "ClusterShare — " +
     {
@@ -2248,7 +2295,7 @@ function reviewExisting(c) {
 $("#sources").onclick = () =>
   openDrawer(
     dh("The thinking behind the numbers.", "SOURCES & METHODOLOGY") +
-      `<p>The district directory substantiates school names. The other school-system policies are comparative examples, not Forsyth rules or evidence of the demonstration estimates. ClusterShare is an independent FBLA demonstration, not a district service.</p><a class="source" target="_blank" rel="noopener" href="https://apps.fcps.org/legal/documents/400-03">Frederick County Public Schools · Property relocation policy ↗<small>Public regulation describing school-system property relocation and equipment transfer requests.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.fcps.edu/get-involved/procurement-services/public-auction-and-surplus">Fairfax County Public Schools · Public auction & surplus ↗<small>Context for responsible surplus materials and equipment handling.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/inside-fcs/financial-transparency">Forsyth County Schools · Financial transparency ↗<small>Official local budget and finance references. These do not substantiate the simulated ClusterShare replacement-value totals.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/schools/about">Forsyth County Schools · School directory ↗<small>Local campus names used throughout this demonstration. School names do not imply an operating delivery service.</small></a><details class="photo-credits"><summary>Inventory photography credits</summary><p>Representative catalog photography, shown for this educational demonstration.</p><a class="source" target="_blank" rel="noopener" href="https://underwooddistributing.com/products/ti84plusceteacherpack">TI-84 Plus CE · Underwood Distributing ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.officeboffins.co.uk/bs-poly-stacking-school-chairs.html">Classroom chairs · Office Boffins ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.dynatech.de/vernier-go-direct-temperatursensor-teacherpack-gdx-tmp-tp-8x-gdx-tmp-ladestation-messbereich-40-1250c-0-250c-wireless-usb">Vernier probe kit · DynaTech ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.ebay.com/itm/126976250905">The Great Gatsby classroom lot · eBay seller ↗</a><a class="source" target="_blank" rel="noopener" href="https://manuals.plus/asin/B0CNTHVSGD">Mobile whiteboard · COSTWAY / Manuals+ ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/books/paperback-books/leveled-books-classroom-library2/p/TT160X/">Guided reading library · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/accessories/book-bins-set-of-12/p/LM453/">Book bins · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.schoolspecialty.com/frey-scientific-classroom-microscope-bundle-intermediate-2132612">Microscope kit · School Specialty ↗</a>${seed
+      `<p>The district directory substantiates school names. The other school-system policies are comparative examples, not Forsyth rules or evidence of the demonstration estimates. ClusterShare is an independent FBLA demonstration, not a district service.</p><a class="source" target="_blank" rel="noopener" href="https://apps.fcps.org/legal/documents/400-03">Frederick County Public Schools · Property relocation policy ↗<small>Public regulation describing school-system property relocation and equipment transfer requests.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.fcps.edu/get-involved/procurement-services/public-auction-and-surplus">Fairfax County Public Schools · Public auction & surplus ↗<small>Context for responsible surplus materials and equipment handling.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/inside-fcs/financial-transparency">Forsyth County Schools · Financial transparency ↗<small>Official local budget and finance references. These do not substantiate the simulated ClusterShare replacement-value totals.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/schools/about">Forsyth County Schools · School directory ↗<small>Local campus names used throughout this demonstration. School names do not imply an operating delivery service.</small></a><details class="impact-research"><summary>Research behind the reuse approach</summary><p>Rheaply frames internal reuse around finding existing resources before repurchasing. DonorsChoose connects classroom needs with donor support. These are references for the approach, not evidence of ClusterShare savings.</p><a class="source" target="_blank" rel="noopener" href="https://rheaply.com/internal-reuse/">Rheaply · Internal reuse ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.donorschoose.org/teachers">DonorsChoose · Classroom resources and donor support ↗</a><a class="source" target="_blank" rel="noopener" href="https://sustainability.uchicago.edu/get-involved/waste-recycling-resources/rheaply/">University of Chicago · Internal resource exchange ↗</a></details><details class="photo-credits"><summary>Inventory photography credits</summary><p>Representative catalog photography, shown for this educational demonstration.</p><a class="source" target="_blank" rel="noopener" href="https://underwooddistributing.com/products/ti84plusceteacherpack">TI-84 Plus CE · Underwood Distributing ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.officeboffins.co.uk/bs-poly-stacking-school-chairs.html">Classroom chairs · Office Boffins ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.dynatech.de/vernier-go-direct-temperatursensor-teacherpack-gdx-tmp-tp-8x-gdx-tmp-ladestation-messbereich-40-1250c-0-250c-wireless-usb">Vernier probe kit · DynaTech ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.ebay.com/itm/126976250905">The Great Gatsby classroom lot · eBay seller ↗</a><a class="source" target="_blank" rel="noopener" href="https://manuals.plus/asin/B0CNTHVSGD">Mobile whiteboard · COSTWAY / Manuals+ ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/books/paperback-books/leveled-books-classroom-library2/p/TT160X/">Guided reading library · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/accessories/book-bins-set-of-12/p/LM453/">Book bins · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.schoolspecialty.com/frey-scientific-classroom-microscope-bundle-intermediate-2132612">Microscope kit · School Specialty ↗</a>${seed
         .filter((a) => a.source)
         .map(
           (a) =>
