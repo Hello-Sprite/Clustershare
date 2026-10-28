@@ -5,7 +5,7 @@ function preferenceFields(p = state.preferences || {}) {
   return field('grade','Grade band',[['any','Any grade'],['Elementary','Elementary'],['Middle','Middle school'],['High','High school']])+field('subject','Teaching area',[['any','Across subjects'],['math','Mathematics'],['science','Science'],['literacy','Literacy & reading'],['art','Arts']])+field('category','Resource type',[['any','Any resource'],['1','STEM & Lab'],['2','Curriculum Sets'],['3','Classroom Furniture'],['4','Storage & Office']]);
 }
 function finderSection() {
-  return `<section class="section finder" aria-labelledby="finder-title"><div class="section-heading"><div><span class="eyebrow">A little more relevant</span><h2 id="finder-title">Find resources for your classroom.</h2></div><p>Three quick choices. Real catalog matches. Saved on this browser only.</p></div><form id="finder-form" class="preference-fields">${preferenceFields()}<button class="primary">Find my matches ↗</button></form><div id="finder-results"></div></section>`;
+  return `<section class="section finder rounded-section" aria-labelledby="finder-title"><div class="section-heading"><h2 id="finder-title">Find resources for your classroom.</h2></div><form id="finder-form" class="preference-fields">${preferenceFields()}<button class="primary">Find my matches ↗</button></form><div id="finder-results"></div></section>`;
 }
 function matchingResources() { return M.recommendations(allAssets(), state.preferences).filter(a=>!a.local && !requestFor(a.id)); }
 function bindFinder() {
@@ -40,4 +40,18 @@ function renderRecommendations() {
   const matches = M.browseRecommendations(allAssets(), state, browse);
   slot.innerHTML = matches.length ? `<section class="recommendation-shelf"><div class="recommendation-heading"><h2>Recommended for your room</h2><button class="text-link" id="edit-preferences">Edit preferences</button></div><div class="recommendation-list">${matches.map(a=>`<button class="recommendation-item" data-detail="${esc(a.id)}">${resourceImage(a)}<span><strong>${esc(a.title)}</strong><small>${esc(a.qty)} · ${esc(a.school)}</small></span><span aria-hidden="true">↗</span></button>`).join('')}</div></section>` : '';
   if ($('#edit-preferences')) $('#edit-preferences').onclick = openProfile;
+}
+
+let sharingObserver;
+function startSharingAnimation() {
+  sharingObserver?.disconnect();
+  const section = $('#sharing');
+  if (!section || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+  sharingObserver = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      section.classList.add('sharing-animate');
+      sharingObserver.disconnect();
+    }
+  }, {threshold:.15});
+  sharingObserver.observe(section);
 }

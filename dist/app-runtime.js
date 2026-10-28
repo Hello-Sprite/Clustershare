@@ -1203,13 +1203,10 @@ seed.forEach((a) => {
 })(typeof globalThis !== "undefined" ? globalThis : this);
 
 function hero() {
-  return `<section class="hero" aria-labelledby="home-title"><div class="hero-copy"><span class="eyebrow">The Forsyth classroom commons</span><h1 id="home-title">Made for the<br><em>next classroom.</em></h1><p>Share surplus classroom supplies, books, and equipment with Forsyth County educators. Find what your classroom needs, completely free.</p><div class="button-row"><a href="#inventory" class="primary">Browse free resources <span aria-hidden="true">↗</span></a><button class="secondary" data-list>List a resource</button></div><form id="home-search" class="hero-search"><label for="home-query">Find a resource</label><div><input id="home-query" name="query" placeholder="Try lab kits, books, or your school…"><button type="submit" aria-label="Search resources">↗</button></div></form><p class="free-assurance">Free classroom resources. No purchases or payments.</p><p class="fineprint">An independent student demo. No real requests are sent.</p></div><div class="hero-composition"><div class="rotating-showcase">${[0,2,3,4,5].map((n,i)=>`<button class="hero-showcase hero-slide" data-slide="${i}" ${i ? 'hidden' : ''} data-detail="${seed[n].id}" aria-label="View ${esc(seed[n].title)}"><div class="showcase-top"><span>Useful here. Needed somewhere else.</span><span>Free to share ↗</span></div><div class="showcase-photo">${resourceImage(seed[n])}</div><div class="showcase-caption"><div><span>${esc(seed[n].school)}</span><strong>${esc(seed[n].title)}</strong></div><span>${esc(seed[n].qty)}</span></div></button>`).join("")}<div class="carousel-controls"><button id="hero-prev" aria-label="Previous resource">←</button><span id="hero-position">1 / 5</span><button id="hero-next" aria-label="Next resource">→</button><button id="hero-pause" aria-label="Pause resource preview">Pause</button></div></div></div><nav class="hero-categories" aria-label="Explore resource categories"><span>Find your next useful thing</span>${cats.map((c, i) => `<a href="#inventory?category=${i}">${c}</a>`).join("")}</nav></section>`;
+  return `<section class="hero" aria-labelledby="home-title"><div class="hero-copy"><span class="eyebrow">The Forsyth classroom commons</span><h1 id="home-title">Made for the<br><em>next classroom.</em></h1><p>Share surplus classroom supplies, books, and equipment with Forsyth County educators. Find what your classroom needs, completely free.</p><div class="button-row"><a href="#inventory" class="primary">Browse free resources <span aria-hidden="true">↗</span></a><button class="secondary" data-list>List a resource</button></div><form id="home-search" class="hero-search"><label for="home-query">Find a resource</label><div><input id="home-query" name="query" placeholder="Try lab kits, books, or your school…"><button type="submit" aria-label="Search resources">↗</button></div></form><p class="free-assurance">Free classroom resources. No purchases or payments.</p><p class="fineprint">An independent student demo. No real requests are sent.</p></div><div class="hero-composition"><div class="rotating-showcase">${[0,2,3,4,5].map((n,i)=>`<button class="hero-showcase hero-slide" data-slide="${i}" ${i ? 'hidden' : ''} data-detail="${seed[n].id}" aria-label="View ${esc(seed[n].title)}"><div class="showcase-photo">${resourceImage(seed[n])}</div><div class="showcase-caption"><div><span>${esc(seed[n].school)}</span><strong>${esc(seed[n].title)}</strong></div><span>${esc(seed[n].qty)}</span></div></button>`).join("")}<div class="carousel-controls"><button id="hero-prev" aria-label="Previous resource">←</button><span id="hero-position">1 / 5</span><button id="hero-next" aria-label="Next resource">→</button><button id="hero-pause" aria-label="Pause resource preview">Pause</button></div></div></div></section>`;
 }
 function workflow() {
-  return `<section class="workflow section" data-reveal="0" id="sharing" aria-labelledby="sharing-title"><div class="section-heading"><div><span class="eyebrow">02 / How sharing works</span><h2 id="sharing-title">How sharing works.</h2></div><p>Find something useful, send a request, then coordinate with the school. Requests are recorded locally; no real messages are sent.</p></div><div class="handoff-track"><div class="track-line" aria-hidden="true"></div><article><div class="handoff-art asset-tag" aria-hidden="true"><span>CLUSTERSHARE</span><b>Ready for another<br>school year.</b><small>RESOURCE / FREE</small><i class="mini-barcode"></i></div><span class="step-number">01</span><h3>Find a resource</h3><p>Browse free supplies from nearby classrooms.</p><a class="text-link" href="#inventory">Browse free resources ↗</a></article><article><div class="handoff-art transfer-art" aria-hidden="true"><span>Transfer Custody Record</span><b>$0</b><small>Origin → Destination</small><i></i><i></i><em>PROPOSED HANDOFF</em></div><span class="step-number">02</span><h3>Send a request</h3><p>Request the resource or suggest an equipment swap.</p><a class="text-link" href="#inventory">Find your next resource ↗</a></article><article><div class="handoff-art route-art" aria-hidden="true"><b>AGREE &amp; COLLECT</b><div><span>TAG</span><i>→</i><span>RECORD</span><i>→</i><span>CLASS</span></div><small>Or coordinate self-pickup</small></div><span class="step-number">03</span><h3>Plan the handoff</h3><p>Coordinate collection and any required school approval.</p><a class="text-link" href="#courier">Open handoff planning ↗</a></article></div></section>`;
-}
-function impactSection() {
-  return `<section class="community-impact section" id="reuse" data-reveal="1" aria-labelledby="impact-title"><div class="reuse-photo">${resourceImage(seed[3])}<span>30 books. Many more chapters.</span></div><div class="reuse-copy"><span class="eyebrow">More classroom years</span><h2 id="impact-title">Before buying new, see what another classroom can share.</h2><p>Discover nearby resources, request or suggest a swap, and keep handoff details together. A proposed teacher-to-teacher tool, independent of the school district.</p><a href="#ledger" class="text-link">Explore the value of reuse ↗</a><div class="reuse-estimate"><strong>${money(seed[3].value)}</strong><p>Estimated replacement cost for 30 Gatsby paperbacks.<br>Free to request · simulated listing, not verified savings.</p></div></div></section>`;
+  return `<section class="workflow section rounded-section" id="sharing" aria-labelledby="sharing-title"><div class="section-heading"><h2 id="sharing-title">How sharing works.</h2></div><div class="handoff-track"><div class="track-line" aria-hidden="true"></div><article><div class="handoff-art asset-tag" aria-hidden="true"><span>CLUSTERSHARE</span><b>Ready for another<br>school year.</b><small>RESOURCE / FREE</small><i class="mini-barcode"></i></div><span class="step-number">01</span><h3>Find a resource</h3><p>Browse free supplies from nearby classrooms.</p><a class="text-link" href="#inventory">Browse free resources ↗</a></article><article><div class="handoff-art transfer-art" aria-hidden="true"><span>Transfer Custody Record</span><b>$0</b><small>Origin → Destination</small><i></i><i></i><em>PROPOSED HANDOFF</em></div><span class="step-number">02</span><h3>Send a request</h3><p>Request the resource or suggest an equipment swap.</p><a class="text-link" href="#inventory">Find your next resource ↗</a></article><article><div class="handoff-art route-art" aria-hidden="true"><b>AGREE &amp; COLLECT</b><div><span>TAG</span><i>→</i><span>RECORD</span><i>→</i><span>CLASS</span></div><small>Or coordinate self-pickup</small></div><span class="step-number">03</span><h3>Plan the handoff</h3><p>Coordinate collection and any required school approval.</p><a class="text-link" href="#items">Review your requests ↗</a></article></div></section>`;
 }
 function faq() {
   return `<section class="faq" aria-labelledby="faq-title"><div><h2 id="faq-title">A few useful answers.</h2></div><div class="faq-questions">${[
@@ -1222,8 +1219,8 @@ function faq() {
       "The concept serves Forsyth County educators. This independent student prototype has no sign-in or educator verification and is not affiliated with the school district.",
     ],
     [
-      "Will this book a real courier delivery?",
-      "No. Tuesday/Thursday loops are proposed examples using real campus names. Confirm school approval, packing, route eligibility, and timing before any real handoff. Bulky furniture requires self-pickup.",
+      "Does choosing delivery book transportation?",
+      "No. Delivery means arranging transportation with the school. This demo does not book a service. Bulky furniture requires pickup.",
     ],
     [
       "Where are my listings and requests stored?",
@@ -1242,22 +1239,11 @@ function faq() {
 }
 function renderHome() {
   window.ClusterReveal?.dispose();
-  const featured = [
-    ...seed.filter((a) => [3, 4, 5].includes(a.id)),
-    ...allAssets(),
-  ]
-    .filter(
-      (a, i, all) =>
-        all.findIndex((b) => String(b.id) === String(a.id)) === i &&
-        !requestFor(a.id),
-    )
-    .slice(0, 3);
   main.innerHTML =
     hero() +
     finderSection() +
     workflow() +
-    impactSection() +
-    `<section class="contribute section" id="contribute" data-reveal="2"><div class="contribute-copy"><span class="eyebrow">Taught here. Shared here. Used again.</span><h2>Something to spare.<br><em>Something to share.</em></h2><p>Give the equipment, books, and supplies in your classroom a useful next chapter.</p><button class="primary" data-list>Share a resource ↗</button><p class="fineprint">Listings are saved only in this browser.</p></div>${faq()}</section>`;
+    `<section class="contribute section rounded-section" id="contribute" data-reveal="2"><div class="contribute-copy"><h2>Something to spare.<br><em>Something to share.</em></h2><p>Give the equipment, books, and supplies in your classroom a useful next chapter.</p><button class="primary" data-list>Share a resource ↗</button><p class="fineprint">Listings are saved only in this browser.</p></div>${faq()}</section>`;
   $("#home-search").onsubmit = (e) => {
     e.preventDefault();
     browse = { ...defaults(), query: $("#home-query").value };
@@ -1265,6 +1251,7 @@ function renderHome() {
   };
   bindFinder();
   startHero();
+  startSharingAnimation();
   bindCommon();
 }
 
@@ -1277,9 +1264,9 @@ function renderItems() {
   if (!tabs.some(([key]) => key === itemsTab)) itemsTab = "requests";
   main.innerHTML =
     pageHeading(
-      "Your educator workspace",
+      "",
       "Your Items",
-      "Manage local requests, saved resources, and your listings.",
+      "",
       `<button class="secondary" data-list>List a resource ↗</button>`,
     ) +
     `<nav class="item-tabs" aria-label="Your items categories">${tabs.map(([key, label]) => `<a href="#items?tab=${key}" ${itemsTab === key ? 'aria-current="page"' : ""}>${label} <span>${key === "requests" ? state.claims.filter(M.isActive).length : key === "saved" ? allAssets().filter((a) => state.saved.some((id) => String(id) === String(a.id))).length : state.listings.length}</span></a>`).join("")}</nav>`;
@@ -1298,14 +1285,15 @@ function renderItems() {
           (filter === "active" ? M.isActive(c) : !M.isActive(c)),
       );
       $("#requestRecords").innerHTML = records.length
-        ? `<div class="request-table"><div class="request-table-head" aria-hidden="true"><span>Resource</span><span>Destination & handoff</span><span>Status</span><span>Next action</span></div>${records
+        ? `<div class="resource-grid request-cards">${records
             .map((c) => {
               const a = findAsset(c.asset);
-              return `<article class="managed-request"><div><h2>${esc(a?.title || "Resource unavailable")}</h2><p>${esc(c.date)}</p></div><div><p>${esc(c.campus)} · Room ${esc(c.room)}</p><p>${c.method === "Self-pickup" ? "Self-pickup" : "Proposed courier"}</p></div><span class="resource-status ${M.isActive(c) ? "pending" : ""}">${M.requestLabel(c)}</span><button class="secondary" data-voucher="${esc(c.id)}">${M.isActive(c) ? "Review & manage" : "View record"} ↗</button></article>`;
+              return `<article class="resource-card managed-request request-card"><div class="resource-media">${a ? `<button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button>` : ''}</div><div class="resource-copy"><h2>${esc(a?.title || "Resource unavailable")}</h2><p class="quantity">${esc(a?.qty || "")}</p><p>${esc(c.date)}</p><div class="request-destination"><p>${esc(c.campus)} · Room ${esc(c.room)}</p><p>${c.method === "Self-pickup" ? "Pick up" : "Delivery"}</p></div><span class="resource-status ${M.isActive(c) ? "pending" : ""}">${M.requestLabel(c)}</span><button class="primary" data-voucher="${esc(c.id)}">${M.isActive(c) ? "Review & manage" : "View record"} ↗</button></div></article>`;
             })
             .join("")}</div>`
         : '<p class="notice">No records in this status. <button class="text-link" id="show-all-requests">Show all records</button></p>';
       if ($("#show-all-requests")) $("#show-all-requests").onclick = () => { $("#requestStatus").value = "all"; draw(); };
+      bindCommon();
       bind("[data-voucher]", (el) =>
         reviewExisting(state.claims.find((c) => c.id === el.dataset.voucher)),
       );
@@ -1427,8 +1415,8 @@ function listResource(id = null) {
                 ) +
                 input("room", "Room", 'required maxlength="40"') +
                 input("teacher", "Educator name", 'required maxlength="100"') +
-                `<label for="list-kind">Transfer type</label><select id="list-kind" name="kind"><option value="transfer">Free transfer</option><option value="swap" ${draft.kind === "swap" ? "selected" : ""}>Equipment swap</option></select><label for="list-method">Handoff</label><select id="list-method" name="method"><option value="courier">Courier eligible / self-pickup</option><option value="pickup" ${draft.method === "pickup" ? "selected" : ""}>Self-pickup required</option></select><p class="field-help">Furniture requires self-pickup. Courier routes are proposed.</p>`
-              : `<dl class="quick-details"><dt>Resource</dt><dd>${esc(draft.title)}</dd><dt>Quantity</dt><dd>${esc(draft.count)} ${esc(draft.unit)} · ${esc(draft.condition)}</dd><dt>Origin</dt><dd>${esc(draft.school)} · Room ${esc(draft.room)}<br>${esc(draft.teacher)}</dd><dt>Transfer</dt><dd>${draft.kind === "swap" ? "Free equipment swap" : "Free resource"} · ${Number(draft.cat) === 3 || draft.method === "pickup" ? "Self-pickup" : "Proposed courier / pickup"}</dd><dt>Lot estimate</dt><dd>${money(Number(draft.count) * Number(draft.unitValue || 0))}</dd></dl><label for="list-notes">Condition details & included accessories (optional)</label><textarea id="list-notes" name="notes" maxlength="1000" placeholder="Describe wear, working condition, and what is included…">${esc(draft.notes)}</textarea>` +
+                `<label for="list-kind">Transfer type</label><select id="list-kind" name="kind"><option value="transfer">Free transfer</option><option value="swap" ${draft.kind === "swap" ? "selected" : ""}>Equipment swap</option></select><label for="list-method">Handoff</label><select id="list-method" name="method"><option value="courier">Pick up or delivery</option><option value="pickup" ${draft.method === "pickup" ? "selected" : ""}>Self-pickup required</option></select><p class="field-help">Furniture requires pickup. Arrange delivery with the school for other items.</p>`
+              : `<dl class="quick-details"><dt>Resource</dt><dd>${esc(draft.title)}</dd><dt>Quantity</dt><dd>${esc(draft.count)} ${esc(draft.unit)} · ${esc(draft.condition)}</dd><dt>Origin</dt><dd>${esc(draft.school)} · Room ${esc(draft.room)}<br>${esc(draft.teacher)}</dd><dt>Transfer</dt><dd>${draft.kind === "swap" ? "Free equipment swap" : "Free resource"} · ${Number(draft.cat) === 3 || draft.method === "pickup" ? "Self-pickup" : "Pick up or delivery"}</dd><dt>Lot estimate</dt><dd>${money(Number(draft.count) * Number(draft.unitValue || 0))}</dd></dl><label for="list-notes">Condition details & included accessories (optional)</label><textarea id="list-notes" name="notes" maxlength="1000" placeholder="Describe wear, working condition, and what is included…">${esc(draft.notes)}</textarea>` +
                 `<label for="list-photo-file">Resource photo (optional)</label><input id="list-photo-file" type="file" accept="image/jpeg,image/png,image/webp"><p class="field-help">Choose a photo from this device. It is resized and saved only in this browser. Without a photo, a category illustration is used.</p><div id="photo-preview">${draft.photo ? `<img src="${esc(draft.photo)}" alt="Selected resource photo"><button type="button" class="text-link" id="remove-photo">Remove photo</button>` : ''}</div><p id="photo-error" class="form-error" role="alert" hidden></p><p class="notice">Saved only in this browser. No publication, school approval, or real dispatch occurs.</p>`
         }<div class="form-actions">${stage > 1 ? '<button type="button" class="secondary" id="listingBack">Back</button>' : ""}<button type="submit" class="primary">${stage === 3 ? "Save local listing" : "Continue →"}</button></div></form>`,
     );
@@ -1497,90 +1485,23 @@ function listResource(id = null) {
   draw();
 }
 
-function localActivity() {
-  const events = [
-    ...state.listings.map((a) => ({
-      at: a.updatedAt || a.createdAt || 0,
-      label:
-        (a.archived ? "Archived " : a.updatedAt ? "Updated " : "Listed ") +
-        a.title,
-      detail: a.school,
-      date:
-        a.updatedAt || a.createdAt
-          ? new Intl.DateTimeFormat("en-US", {
-              dateStyle: "medium",
-              timeZone: "America/New_York",
-            }).format(new Date(a.updatedAt || a.createdAt))
-          : "Local listing",
-    })),
-    ...state.claims.map((c) => ({
-      at: c.updatedAt || c.createdAt || 0,
-      label:
-        (!M.isActive(c)
-          ? "Withdrew request for "
-          : c.type === "swap"
-            ? "Proposed a swap for "
-            : "Requested ") + (findAsset(c.asset)?.title || "a resource"),
-      detail: c.campus,
-      date: c.date,
-    })),
-  ]
-    .sort((a, b) => b.at - a.at)
-    .slice(0, 6);
-  return `<section class="local-activity"><div class="section-heading"><div><span class="eyebrow">In this browser</span><h2>Your local activity</h2></div><a href="#items" class="text-link">Review your items ↗</a></div><p>Listing and request records from this device. No live district feed or operational delivery is implied.</p>${events.length ? `<ol>${events.map((e) => `<li><div><strong>${esc(e.label)}</strong><p>${esc(e.detail)}</p></div><time>${esc(e.date)}</time></li>`).join("")}</ol>` : '<p class="notice">No local activity yet. <a href="#inventory">Find a resource to request ↗</a></p>'}</section>`;
-}
-function renderCourier() {
-  main.innerHTML =
-    pageHeading(
-      "Proposed handoff logistics",
-      "Handoff Planning",
-      "Agree where, when, and how to collect a resource. No transport or approval is booked by this prototype.",
-    ) +
-    `${handoffPreparation()}<section class="packing-guide"><h2>Plan the handoff together.</h2><ol><li><strong>Location & permission.</strong> Confirm availability, the collection point, and school approval with the origin campus.</li><li><strong>Timing & contact.</strong> Agree on a collection window and a contact person outside this demo.</li><li><strong>Transport.</strong> Arrange suitable self-pickup. For small equipment, ask whether a school-approved service exists; bulky furniture needs self-pickup.</li><li><strong>Pack & collect.</strong> Include accessories, protect fragile equipment, and bring identification and the proposed Transfer Custody Record.</li></ol><a class="text-link" href="#items">Review your requests & Transfer Custody Records ↗</a><p class="fineprint">Requests and Transfer Custody Records stay in this browser. They do not contact staff, approve transfers, or book transport.</p></section><details class="sample-routes"><summary>Optional sample transport routes</summary><p>Illustrative examples only. Confirm any actual service, eligibility, and timing with the school.</p><label class="route-filter">Proposed route<select id="routeChoice" aria-label="Proposed route"><option value="all">Both sample routes</option>${courierRoutes.map((r,i)=>`<option value="${i}">${r.day} · ${r.name}</option>`).join('')}</select></label><div class="schedule">${courierRoutes.map((r,i)=>`<section class="route-card" data-route="${i}"><span class="eyebrow">Sample route ${i?'B':'A'} · ${r.day}</span><h2>${r.name}</h2><ol>${r.stops.map(([time,school])=>`<li><time>${time}</time><span>${school}</span></li>`).join('')}</ol><p>Illustrative timing · Front-office handoff</p></section>`).join('')}</div></details>${localActivity()}`;
-  bindCommon();
-  bind("[data-voucher]", (el) =>
-    reviewExisting(state.claims.find((c) => c.id === el.dataset.voucher)),
-  );
-  $("#routeChoice").onchange = (e) =>
-    document
-      .querySelectorAll("[data-route]")
-      .forEach(
-        (el) =>
-          (el.hidden =
-            e.target.value !== "all" && el.dataset.route !== e.target.value),
-      );
-}
-function handoffPreparation() {
-  const requests = state.claims.filter(M.isActive);
-  return `<section class="handoff-preparation"><h2>Your handoff preparation</h2>${
-    requests.length
-      ? requests
-          .map((c) => {
-            const a = findAsset(c.asset);
-            return `<article><h3>${esc(a?.title || "Resource unavailable")}</h3><p>${esc(a?.school)} → ${esc(c.campus)}</p><p>${esc(M.routeEligibility(a, c, courierRoutes))}</p><button class="text-link" data-voucher="${esc(c.id)}">Review request & Transfer Custody Record ↗</button></article>`;
-          })
-          .join("")
-      : '<p class="notice">No active requests in this browser. <a href="#inventory">Find a resource to request ↗</a></p>'
-  }</section>`;
-}
 function renderLedger() {
-  main.innerHTML =
-    pageHeading(
-      "Community impact & methodology",
-      "Impact",
-      "Replacement value is a planning estimate—not a selling price, audited cash saving, or verified environmental benefit.",
-    ) +
-    `<div class="metrics local-metrics"><section><span>Resources in active local transfer requests</span><strong>${M.valueBreakdown([...state.listings,...seed],state).length}</strong><p>Recorded in this browser · not completed handoffs</p></section><section><span>Estimated replacement value requested</span><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><p>Planning estimates · not verified savings</p></section></div>${valueBreakdown()}<details class="illustrative-impact"><summary>Illustrative scenario · competition example</summary><p>These fixed example values do not come from your requests or measured district operations.</p><div class="example-values"><div><strong>$42,850</strong><span>Example replacement value</span></div><div><strong>3.2 days</strong><span>Example reallocation time</span></div></div></details><section class="proposed-measures"><h2>How success could be measured</h2><p><strong>Proposed measures — not currently tracked:</strong> completed handoffs confirmed by both schools, the share of requests fulfilled, and time from starting a search to finding a suitable resource. These would require a future pilot and participant confirmation; the demo does not collect or report these outcomes.</p></section><section class="methodology" id="methodology"><span class="eyebrow">How to read the numbers</span><h2>Useful estimates. Clear limits.</h2><div><article><h3>Quantity × unit estimate</h3><p>Each resource’s detail view shows its complete-lot estimate. For example, 8 probes × $80 each = $640. These are rounded planning estimates, not supplier quotes.</p></article><article><h3>Requests are not savings</h3><p>Only active transfer requests count toward the local total. Pending swaps and withdrawn requests are excluded. A request does not demonstrate a completed handoff.</p></article><article><h3>Independent student project</h3><p>School names ground the concept. Seeded listings, educators, rooms, and availability are simulated. No audited savings or environmental benefits are claimed.</p></article></div><button class="secondary" data-sources>Sources & photography credits ↗</button></section>`;
+  const rows = M.valueBreakdown([...state.listings, ...seed], state);
+  const example = seed[0];
+  main.innerHTML = pageHeading('', 'Impact', '') +
+    `<section class="impact-panel"><h2>Resources you've requested</h2><div class="impact-request-summary"><div><strong>${rows.length}</strong><span>${rows.length === 1 ? 'resource requested' : 'resources requested'}</span></div><div><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><span>estimated replacement cost</span></div></div><p class="fineprint">Requests saved in this browser, not completed transfers or verified savings.</p>${valueBreakdown()}</section>` +
+    `<section class="impact-panel impact-example"><div class="impact-example-photo">${resourceImage(example)}</div><div><h2>Useful equipment, another classroom.</h2><h3>${esc(example.title)}</h3><p>${esc(example.qty)}</p><p class="impact-free">Free to request</p><p>A shared set could equip another classroom before new supplies are purchased.</p><p class="fineprint">Example listing · estimated replacement cost ${money(example.value)}.</p></div></section>` +
+    `<section class="impact-panel"><h2>How the value is counted</h2><p>Quantity × estimated cost per item. Only active transfer requests are included; pending swaps and withdrawn requests are excluded.</p><details class="impact-method"><summary>How success could be measured</summary><p>In a future pilot: completed handoffs confirmed by schools, requests fulfilled, and time to find a resource. These outcomes are not tracked in this demo.</p></details><button class="secondary" data-sources>Sources & methodology ↗</button></section>`;
   bindCommon();
 }
 function valueBreakdown() {
   const rows = M.valueBreakdown([...state.listings, ...seed], state);
-  return `<section class="value-breakdown"><h2>What these resources could cost to replace</h2><p>Active transfer requests only. Pending swaps and withdrawn records are excluded.</p>${rows.length ? `<div class="value-rows">${rows.map((a) => `<article><div><h3>${esc(a.title)}</h3><p>${a.count} × ${money(a.unitValue)} · ${esc(a.school)}</p></div><strong>${money(a.value)}</strong></article>`).join("")}</div>` : '<p class="notice">No active transfer requests in this browser. <a href="#inventory">Browse free resources ↗</a></p>'}<p class="value-total">Total requested value <strong>${money(M.requestedValue([...state.listings, ...seed], state))}</strong></p></section>`;
+  return rows.length ? `<div class="value-rows">${rows.map(a=>`<article><div><h3>${esc(a.title)}</h3><p>${esc(a.qty)} · ${esc(a.school)}</p></div><strong>${money(a.value)}</strong></article>`).join('')}</div>` : '<a class="text-link" href="#inventory">Browse free resources ↗</a>';
 }
 
 function ownerCard(a) {
   const request = requestFor(a.id);
-  return `<article class="resource-card managed-listing"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? 'Available for swap' : 'Free transfer'}</span></div><div class="resource-copy"><h2>${esc(a.title)}</h2><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><p class="owner-status">${a.archived ? 'Archived · hidden from inventory' : 'Listed in this browser'}</p><p>${request ? esc(M.requestLabel(request)) + ' · local demo record' : 'No active local request'}</p><div class="listing-tools"><button class="primary" data-edit="${esc(a.id)}" data-focus-key="edit-${esc(a.id)}">Edit listing</button><button class="secondary" data-archive="${esc(a.id)}">${a.archived ? 'Restore' : 'Archive'}</button>${request ? `<button class="text-link" data-owner-request="${esc(a.id)}">Review request</button>` : ''}</div></div></article>`;
+  return `<article class="resource-card managed-listing"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? 'Swap' : 'Free transfer'}</span></div><div class="resource-copy"><h2>${esc(a.title)}</h2><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><p class="owner-status">${a.archived ? 'Archived · hidden from inventory' : 'Listed in this browser'}</p><p>${request ? esc(M.requestLabel(request)) + ' · local demo record' : 'No active local request'}</p><div class="listing-tools"><button class="primary" data-edit="${esc(a.id)}" data-focus-key="edit-${esc(a.id)}">Edit listing</button><button class="secondary" data-archive="${esc(a.id)}">${a.archived ? 'Restore' : 'Archive'}</button>${request ? `<button class="text-link" data-owner-request="${esc(a.id)}">Review request</button>` : ''}</div></div></article>`;
 }
 
 /* Lightweight preferences and progressive homepage enhancement. */
@@ -1590,7 +1511,7 @@ function preferenceFields(p = state.preferences || {}) {
   return field('grade','Grade band',[['any','Any grade'],['Elementary','Elementary'],['Middle','Middle school'],['High','High school']])+field('subject','Teaching area',[['any','Across subjects'],['math','Mathematics'],['science','Science'],['literacy','Literacy & reading'],['art','Arts']])+field('category','Resource type',[['any','Any resource'],['1','STEM & Lab'],['2','Curriculum Sets'],['3','Classroom Furniture'],['4','Storage & Office']]);
 }
 function finderSection() {
-  return `<section class="section finder" aria-labelledby="finder-title"><div class="section-heading"><div><span class="eyebrow">A little more relevant</span><h2 id="finder-title">Find resources for your classroom.</h2></div><p>Three quick choices. Real catalog matches. Saved on this browser only.</p></div><form id="finder-form" class="preference-fields">${preferenceFields()}<button class="primary">Find my matches ↗</button></form><div id="finder-results"></div></section>`;
+  return `<section class="section finder rounded-section" aria-labelledby="finder-title"><div class="section-heading"><h2 id="finder-title">Find resources for your classroom.</h2></div><form id="finder-form" class="preference-fields">${preferenceFields()}<button class="primary">Find my matches ↗</button></form><div id="finder-results"></div></section>`;
 }
 function matchingResources() { return M.recommendations(allAssets(), state.preferences).filter(a=>!a.local && !requestFor(a.id)); }
 function bindFinder() {
@@ -1625,6 +1546,20 @@ function renderRecommendations() {
   const matches = M.browseRecommendations(allAssets(), state, browse);
   slot.innerHTML = matches.length ? `<section class="recommendation-shelf"><div class="recommendation-heading"><h2>Recommended for your room</h2><button class="text-link" id="edit-preferences">Edit preferences</button></div><div class="recommendation-list">${matches.map(a=>`<button class="recommendation-item" data-detail="${esc(a.id)}">${resourceImage(a)}<span><strong>${esc(a.title)}</strong><small>${esc(a.qty)} · ${esc(a.school)}</small></span><span aria-hidden="true">↗</span></button>`).join('')}</div></section>` : '';
   if ($('#edit-preferences')) $('#edit-preferences').onclick = openProfile;
+}
+
+let sharingObserver;
+function startSharingAnimation() {
+  sharingObserver?.disconnect();
+  const section = $('#sharing');
+  if (!section || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+  sharingObserver = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      section.classList.add('sharing-animate');
+      sharingObserver.disconnect();
+    }
+  }, {threshold:.15});
+  sharingObserver.observe(section);
 }
 
 /* Resize local photos before browser storage; never upload them or accept executable SVG. */
@@ -1802,10 +1737,10 @@ function statusText(a) {
       ? "Swap proposed · pending"
       : "Transfer requested"
     : a.swap
-      ? "Available for swap"
+      ? "Swap"
       : a.selfPickup
         ? "Self-pickup"
-        : "Pickup or proposed route";
+        : "Pick up or delivery";
 }
 function money(n) {
   return "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -1817,17 +1752,17 @@ function resourceImage(a, extra = "") {
 function card(a, featured = false) {
   const r = requestFor(a.id),
     heading = featured || view === "home" ? "h3" : "h2";
-  return `<article class="resource-card"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" data-focus-key="image-${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? "Available for swap · no money involved" : "Free"}</span><button class="save icon-button" data-save="${esc(a.id)}" data-focus-key="save-${esc(a.id)}" aria-label="${state.saved.some((id) => String(id) === String(a.id)) ? "Unsave" : "Save"} ${esc(a.title)}" aria-pressed="${state.saved.some((id) => String(id) === String(a.id))}">${state.saved.some((id) => String(id) === String(a.id)) ? "♥" : "♡"}</button></div><div class="resource-copy"><${heading}><button data-detail="${esc(a.id)}" data-focus-key="detail-${esc(a.id)}">${esc(a.title)}</button></${heading}><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><span class="resource-status ${r ? "pending" : a.archived ? "archived-status" : ""}">${r ? "◷" : a.archived ? "—" : "✓"} ${statusText(a)}</span><button class="primary" ${a.archived && !r ? "disabled" : ""} data-request="${esc(a.id)}" data-focus-key="request-${esc(a.id)}">${r ? "Review request" : a.archived ? "Archived" : a.swap ? "Propose a swap" : "Request resource"} <span aria-hidden="true">↗</span></button></div></article>`;
+  return `<article class="resource-card"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" data-focus-key="image-${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? "Swap" : "Free"}</span><button class="save icon-button" data-save="${esc(a.id)}" data-focus-key="save-${esc(a.id)}" aria-label="${state.saved.some((id) => String(id) === String(a.id)) ? "Unsave" : "Save"} ${esc(a.title)}" aria-pressed="${state.saved.some((id) => String(id) === String(a.id))}">${state.saved.some((id) => String(id) === String(a.id)) ? "♥" : "♡"}</button></div><div class="resource-copy"><${heading}><button data-detail="${esc(a.id)}" data-focus-key="detail-${esc(a.id)}">${esc(a.title)}</button></${heading}><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><span class="resource-status ${r ? "pending" : a.archived ? "archived-status" : ""}">${r ? "◷" : a.archived ? "—" : "✓"} ${statusText(a)}</span><button class="primary" ${a.archived && !r ? "disabled" : ""} data-request="${esc(a.id)}" data-focus-key="request-${esc(a.id)}">${r ? "Review request" : a.archived ? "Archived" : a.swap ? "Propose a swap" : "Request resource"} <span aria-hidden="true">↗</span></button></div></article>`;
 }
 function pageHeading(kicker, title, description, action = "") {
-  return `<div class="page-heading"><div><span class="eyebrow">${kicker}</span><h1>${title}</h1><p>${description}</p></div>${action}</div>`;
+  return `<div class="page-heading"><div>${kicker ? `<span class="eyebrow">${kicker}</span>` : ""}<h1>${title}</h1>${description ? `<p>${description}</p>` : ""}</div>${action}</div>`;
 }
 function stats() {
   const available = allAssets().filter((a) => !requestFor(a.id)).length;
   return `<section class="intro-stats" aria-label="Demonstration statistics"><div><strong>${available}</strong><span>Resources to explore</span></div><div><strong>${Object.keys(campusCodes).length}</strong><span>Real Forsyth campuses</span></div><div><strong>$0</strong><span>Transfer price</span></div><div><strong>${money(42850)}</strong><span>Estimated replacement value recirculated</span></div><p>Sample listings & estimates · Independent student project</p></section>`;
 }
 function sidebarContents() {
-  return `<h2>Browse by</h2><div class="category-links" role="group" aria-label="Resource category">${cats.map((c,i)=>`<button class="${Number(browse.category)===i?'active':''}" data-cat="${i}" aria-pressed="${Number(browse.category)===i}">${i===0?'All resources':c}</button>`).join('')}</div><h2>Filter by</h2><details class="sidebar-group"><summary>School</summary><select aria-label="School" data-filter="school">${options(Object.keys(campusCodes), browse.school, "All schools")}</select></details><details class="sidebar-group"><summary>Condition</summary><select aria-label="Condition" data-filter="condition">${options([...new Set(allAssets().map((a) => a.condition))], browse.condition, "Any condition")}</select></details><details class="sidebar-group"><summary>Handoff</summary><select aria-label="Handoff" data-filter="method"><option value="">Any method</option><option value="courier" ${browse.method === "courier" ? "selected" : ""}>Pickup or proposed route</option><option value="pickup" ${browse.method === "pickup" ? "selected" : ""}>Self-pickup</option></select></details><details class="sidebar-group"><summary>Resource type</summary><select aria-label="Resource type" data-filter="kind"><option value="">Transfers & swaps</option><option value="transfer" ${browse.kind === "transfer" ? "selected" : ""}>Free transfers</option><option value="swap" ${browse.kind === "swap" ? "selected" : ""}>Swaps</option></select></details><label class="check-label"><input type="checkbox" id="available-only" ${browse.available ? "checked" : ""}> Not yet requested</label>`;
+  return `<h2>Filter by</h2><div class="category-links" role="group" aria-label="Resource category">${cats.map((c,i)=>`<button class="${Number(browse.category)===i?'active':''}" data-cat="${i}" aria-pressed="${Number(browse.category)===i}">${i===0?'All resources':c}</button>`).join('')}</div><details class="sidebar-group"><summary>School</summary><select aria-label="School" data-filter="school">${options(Object.keys(campusCodes), browse.school, "All schools")}</select></details><details class="sidebar-group"><summary>Condition</summary><select aria-label="Condition" data-filter="condition">${options([...new Set(allAssets().map((a) => a.condition))], browse.condition, "Any condition")}</select></details><details class="sidebar-group"><summary>Handoff</summary><select aria-label="Handoff" data-filter="method"><option value="">Any method</option><option value="courier" ${browse.method === "courier" ? "selected" : ""}>Pick up or delivery</option><option value="pickup" ${browse.method === "pickup" ? "selected" : ""}>Self-pickup</option></select></details><details class="sidebar-group"><summary>Resource type</summary><select aria-label="Resource type" data-filter="kind"><option value="">Transfers & swaps</option><option value="transfer" ${browse.kind === "transfer" ? "selected" : ""}>Free transfers</option><option value="swap" ${browse.kind === "swap" ? "selected" : ""}>Swaps</option></select></details><label class="check-label"><input type="checkbox" id="available-only" ${browse.available ? "checked" : ""}> Not yet requested</label>`;
 }
 function filterControls() {
   return `<div class="search-hub"><label for="search">Find free classroom resources</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" value="${esc(browse.query)}" placeholder="Search resources, equipment, or schools…"></div><div id="search-correction" role="status"></div><button class="secondary mobile-filter" id="open-filters">Browse & filter</button><div id="active-filters" class="active-filters"></div></div>`;
@@ -1842,7 +1777,7 @@ function renderInventory() {
     pageHeading(
       "The inventory commons",
       "Free classroom resources",
-      "Free resources from real Forsyth campuses. All seeded listings are demonstration data.",
+      "",
       `<button class="secondary" data-list>List resource ↗</button>`,
     ) +
     `<div class="inventory-layout"><aside class="inventory-sidebar" aria-label="Browse and filter">${sidebarContents()}</aside><div class="inventory-results">` + filterControls() +
@@ -1899,7 +1834,7 @@ function renderGrid() {
   if (browse.method)
     chips.push([
       "method",
-      browse.method === "pickup" ? "Self-pickup" : "Pickup or proposed route",
+      browse.method === "pickup" ? "Self-pickup" : "Pick up or delivery",
     ]);
   if (browse.kind)
     chips.push(["kind", browse.kind === "swap" ? "Swaps" : "Free transfers"]);
@@ -1953,7 +1888,8 @@ function navigate(target) {
 }
 function readRoute(scroll = true) {
   const [path, search = ""] = location.hash.slice(1).split("?");
-  const known = ["home", "inventory", "items", "courier", "ledger"];
+  const known = ["home", "inventory", "items", "ledger"];
+  if (path === "courier") { history.replaceState(null, "", "#items"); return readRoute(scroll); }
   view = known.includes(path) ? path : "home";
   if (view === "inventory") {
     const params = new URLSearchParams(search);
@@ -2058,13 +1994,13 @@ function render() {
 function renderView() {
   window.ClusterReveal?.dispose();
   heroCleanup();
+  sharingObserver?.disconnect();
   document.title =
     "ClusterShare — " +
     {
       home: "Made for the next classroom",
       inventory: "Inventory Commons",
       items: "Your Items",
-      courier: "Handoff Planning",
       ledger: "Impact",
     }[view];
   document
@@ -2082,7 +2018,6 @@ function renderView() {
     home: () => renderHome(),
     inventory: () => renderInventory(),
     items: () => renderItems(),
-    courier: () => renderCourier(),
     ledger: () => renderLedger(),
   })[view]();
   if ($('#personalize')) $('#personalize').onclick = openProfile;
@@ -2127,7 +2062,7 @@ function quickView(id) {
   }
   openDrawer(
     dh(esc(a.title), "Resource details") +
-      `<div class="quick-photo">${resourceImage(a)}</div><dl class="quick-details decision-facts"><dt>Quantity & included items</dt><dd>${esc(a.qty)}</dd><dt>Condition</dt><dd>${esc(a.condition)}</dd>${a.notes ? `<dt>Condition details & accessories</dt><dd>${esc(a.notes)}</dd>` : ""}<dt>Known limitations</dt><dd>${a.selfPickup ? "Self-pickup required for this bulky resource. " : ""}${a.notes ? "Confirm the listed details and accessories with the origin school." : "No additional condition or accessory details supplied. Confirm with the origin school before an actual handoff."}</dd></dl><span class="resource-status">${statusText(a)}</span><div class="form-actions detail-actions"><button class="secondary" id="quickSave" aria-pressed="${state.saved.some((s) => String(s) === String(id))}">${state.saved.some((s) => String(s) === String(id)) ? "Unsave resource" : "Save resource"}</button><button class="primary" id="quickRequest">${requestFor(id) ? "Review request" : a.swap ? "Propose a swap" : "Request resource"} ↗</button></div><dl class="quick-details"><dt>Transfer price</dt><dd><strong>Free · $0</strong></dd><dt>School</dt><dd>${esc(a.school)} · Room ${esc(a.room)}</dd><dt>Educator</dt><dd>${esc(a.teacher)}${a.local ? "" : " · Fictional demo educator"}</dd><dt>Department</dt><dd>${esc(a.department)}</dd><dt>Asset ID</dt><dd>${esc(a.assetId)}</dd><dt>Replacement estimate</dt><dd>${money(a.value)} / complete lot<br><small>${a.count} × ${money(a.unitValue)} per unit. Reference estimate, not a sale price.</small></dd><dt>Handoff</dt><dd>${a.selfPickup ? "Coordinated self-pickup required for this bulky resource." : "Proposed courier or coordinated self-pickup. Confirm campus arrangements first."}</dd></dl><p class="notice">${a.local ? "This listing was created in this browser. It has not been published or approved by a school." : "Seeded demonstration listing. Availability, teacher identity, room, and condition are simulated."} No educator verification or real dispatch occurs.</p>`,
+      `<div class="quick-photo">${resourceImage(a)}</div><dl class="quick-details decision-facts"><dt>Quantity & included items</dt><dd>${esc(a.qty)}</dd><dt>Condition</dt><dd>${esc(a.condition)}</dd>${a.notes ? `<dt>Condition details & accessories</dt><dd>${esc(a.notes)}</dd>` : ""}<dt>Known limitations</dt><dd>${a.selfPickup ? "Self-pickup required for this bulky resource. " : ""}${a.notes ? "Confirm the listed details and accessories with the origin school." : "No additional condition or accessory details supplied. Confirm with the origin school before an actual handoff."}</dd></dl><span class="resource-status">${statusText(a)}</span><div class="form-actions detail-actions"><button class="secondary" id="quickSave" aria-pressed="${state.saved.some((s) => String(s) === String(id))}">${state.saved.some((s) => String(s) === String(id)) ? "Unsave resource" : "Save resource"}</button><button class="primary" id="quickRequest">${requestFor(id) ? "Review request" : a.swap ? "Propose a swap" : "Request resource"} ↗</button></div><dl class="quick-details"><dt>Transfer price</dt><dd><strong>Free · $0</strong></dd><dt>School</dt><dd>${esc(a.school)} · Room ${esc(a.room)}</dd><dt>Educator</dt><dd>${esc(a.teacher)}${a.local ? "" : " · Fictional demo educator"}</dd><dt>Department</dt><dd>${esc(a.department)}</dd><dt>Asset ID</dt><dd>${esc(a.assetId)}</dd><dt>Replacement estimate</dt><dd>${money(a.value)} / complete lot<br><small>${a.count} × ${money(a.unitValue)} per unit. Reference estimate, not a sale price.</small></dd><dt>Handoff</dt><dd>${a.selfPickup ? "Coordinated self-pickup required for this bulky resource." : "Pick up or delivery. Arrange transportation with the school."}</dd></dl><p class="notice">${a.local ? "This listing was created in this browser. It has not been published or approved by a school." : "Seeded demonstration listing. Availability, teacher identity, room, and condition are simulated."} No educator verification or real dispatch occurs.</p>`,
   );
   if (a.local) {
     $("#quickSave").remove();
@@ -2165,7 +2100,7 @@ function drawStep() {
       labels[step - 1],
       `${swapMode ? "Swap proposal" : "Transfer request"} · Step ${step} of 3`,
     ) +
-      `<ol class="step-index" aria-label="Request progress">${labels.map((label, i) => `<li ${i + 1 === step ? 'aria-current="step"' : ""}><b>0${i + 1}</b><span>${label}</span></li>`).join("")}</ol><div class="selected-item"><strong>${esc(a.title)}</strong><p>${esc(a.qty)} · ${esc(a.school)}</p></div><form id="claimForm"><p id="form-error" class="form-error" role="alert" hidden></p>${step === 1 ? `<label for="name">Full name</label><input id="name" name="name" required maxlength="100" autocomplete="name" value="${esc(formData.name)}"><label for="department">Department</label><select id="department" name="department" required>${options(["Mathematics", "Science", "Literacy & Languages", "Technology", "Arts & Music", "Elementary Education", "Classroom Support"], formData.department, "Select a department")}</select><label for="email">Email address</label><input id="email" name="email" required type="email" autocomplete="email" value="${esc(formData.email)}"><p class="field-help">Use demo details for judging. No email is sent or verified.</p>` : step === 2 ? `<label for="campus">Destination campus</label><select id="campus" name="campus" required>${options(Object.keys(campusCodes), formData.campus, "Choose a Forsyth campus")}</select><label for="room">Target room number</label><input id="room" name="room" required maxlength="40" value="${esc(formData.room)}" placeholder="e.g. 208">${swapMode ? `<label for="offer">Resource you would offer</label><textarea id="offer" name="offer" required maxlength="800" placeholder="Quantity, condition, and resource description…">${esc(formData.offer)}</textarea>` : ""}` : `<h3>Review your request</h3><dl class="quick-details"><dt>Educator</dt><dd>${esc(formData.name)} · ${esc(formData.department)}<br>${esc(formData.email)}</dd><dt>Destination</dt><dd>${esc(formData.campus)} · Room ${esc(formData.room)}</dd><dt>Price</dt><dd>Free · $0</dd>${swapMode ? `<dt>Proposed swap</dt><dd>${esc(formData.offer)}</dd>` : ""}</dl><fieldset class="method-options"><legend>Choose a proposed handoff</legend><label class="radio"><input type="radio" name="method" value="Cluster courier" ${a.selfPickup ? "disabled" : formData.method !== "Self-pickup" ? "checked" : ""}><span>Proposed cluster courier<small>Tuesday / Thursday sample routes. School approval and coordination are still required.</small></span></label><label class="radio"><input type="radio" name="method" value="Self-pickup" ${a.selfPickup || formData.method === "Self-pickup" ? "checked" : ""}><span>Coordinated self-pickup<small>${a.selfPickup ? "Required for this bulky item. " : ""}Arrange timing and suitable transport with the school.</small></span></label></fieldset><p class="notice">${swapMode ? "Your proposal will remain pending; this demo cannot approve a swap." : "This records a request in this browser, not a confirmed allocation or dispatch."}</p>`}<div class="form-actions">${step > 1 ? '<button type="button" class="secondary" id="back">Back</button>' : ""}<button type="submit" class="primary">${step === 3 ? (editingRequest ? "Save revised request" : swapMode ? "Submit demo proposal" : "Submit demo request") : "Continue →"}</button></div></form>`,
+      `<ol class="step-index" aria-label="Request progress">${labels.map((label, i) => `<li ${i + 1 === step ? 'aria-current="step"' : ""}><b>0${i + 1}</b><span>${label}</span></li>`).join("")}</ol><div class="selected-item"><strong>${esc(a.title)}</strong><p>${esc(a.qty)} · ${esc(a.school)}</p></div><form id="claimForm"><p id="form-error" class="form-error" role="alert" hidden></p>${step === 1 ? `<label for="name">Full name</label><input id="name" name="name" required maxlength="100" autocomplete="name" value="${esc(formData.name)}"><label for="department">Department</label><select id="department" name="department" required>${options(["Mathematics", "Science", "Literacy & Languages", "Technology", "Arts & Music", "Elementary Education", "Classroom Support"], formData.department, "Select a department")}</select><label for="email">Email address</label><input id="email" name="email" required type="email" autocomplete="email" value="${esc(formData.email)}"><p class="field-help">Use demo details for judging. No email is sent or verified.</p>` : step === 2 ? `<label for="campus">Destination campus</label><select id="campus" name="campus" required>${options(Object.keys(campusCodes), formData.campus, "Choose a Forsyth campus")}</select><label for="room">Target room number</label><input id="room" name="room" required maxlength="40" value="${esc(formData.room)}" placeholder="e.g. 208">${swapMode ? `<label for="offer">Resource you would offer</label><textarea id="offer" name="offer" required maxlength="800" placeholder="Quantity, condition, and resource description…">${esc(formData.offer)}</textarea>` : ""}` : `<h3>Review your request</h3><dl class="quick-details"><dt>Educator</dt><dd>${esc(formData.name)} · ${esc(formData.department)}<br>${esc(formData.email)}</dd><dt>Destination</dt><dd>${esc(formData.campus)} · Room ${esc(formData.room)}</dd><dt>Price</dt><dd>Free · $0</dd>${swapMode ? `<dt>Proposed swap</dt><dd>${esc(formData.offer)}</dd>` : ""}</dl><fieldset class="method-options"><legend>Choose a proposed handoff</legend><label class="radio"><input type="radio" name="method" value="Cluster courier" ${a.selfPickup ? "disabled" : formData.method !== "Self-pickup" ? "checked" : ""}><span>Delivery<small>Arrange transportation from the origin school to your campus with the school. This demo does not provide or book a delivery service.</small></span></label><label class="radio"><input type="radio" name="method" value="Self-pickup" ${a.selfPickup || formData.method === "Self-pickup" ? "checked" : ""}><span>Pick up<small>${a.selfPickup ? "Required for this bulky item. " : ""}Arrange timing and suitable transport with the school.</small></span></label></fieldset><p class="notice">${swapMode ? "Your proposal will remain pending; this demo cannot approve a swap." : "This records a request in this browser, not a confirmed allocation or dispatch."}</p>`}<div class="form-actions">${step > 1 ? '<button type="button" class="secondary" id="back">Back</button>' : ""}<button type="submit" class="primary">${step === 3 ? (editingRequest ? "Save revised request" : swapMode ? "Submit demo proposal" : "Submit demo request") : "Continue →"}</button></div></form>`,
   );
   $("#back")?.addEventListener("click", () => {
     Object.assign(formData, Object.fromEntries(new FormData($("#claimForm"))));
@@ -2295,7 +2230,7 @@ function voucher(c) {
           ? "Withdrawn local record"
           : "Saved in this browser",
     ) +
-      `<p class="notice">${c.sessionOnly ? "This record will not survive a refresh. " : ""}${!M.isActive(c) ? "Withdrawn record. Do not use this record for a handoff. Create a new request if needed." : c.type === "swap" ? "Swap proposal pending. This record does not verify a transfer, provide school approval, contact staff, or book transportation." : "Proposed browser-local record only. No transfer is verified, school approval provided, staff contacted, or transportation booked."}</p><div class="voucher"><div class="voucher-masthead"><b>ClusterShare</b><span>Transfer Custody Record<br>${esc(c.date)}</span></div><div class="routing-stamp"><span>ILLUSTRATIVE CAMPUS ROUTING</span><strong>${campusCodes[a.school] || "LOCAL"} → ${campusCodes[c.campus] || "LOCAL"}</strong><small>${c.method === "Self-pickup" ? "SELF-PICKUP / COORDINATION REQUIRED" : "PROPOSED TUE / THU COURIER"}</small></div><h3>${esc(a.title)}</h3><p>${esc(a.qty)} · ${esc(a.assetId)}</p><dl class="voucher-details"><dt>From</dt><dd>${esc(a.school)} · Room ${esc(a.room)}</dd><dt>To</dt><dd>${esc(c.campus)} · Room ${esc(c.room)}</dd><dt>Educator</dt><dd>${esc(c.name)} · ${esc(c.department)}</dd><dt>Price</dt><dd>Free · $0</dd>${c.offer ? `<dt>Swap offer</dt><dd>${esc(c.offer)}</dd>` : ""}</dl><div class="voucher-status">${c.status === "withdrawn" ? "WITHDRAWN · DO NOT USE FOR HANDOFF" : c.type === "swap" ? "PENDING APPROVAL" : "REQUESTED · NOT DISPATCHED"}</div><div class="barcode">${voucherBarcode(hash)}</div><code>${esc(hash)}</code><p class="voucher-disclaimer">INDEPENDENT STUDENT DEMO · ILLUSTRATIVE TRACKING<br>Proposed browser-based demonstration. This record does not verify a transfer or provide school approval.</p></div><div class="form-actions"><button class="secondary" id="printVoucher">Print Transfer Custody Record</button><button class="primary" id="viewClaims">View your items →</button></div><section class="next-actions" ${!M.isActive(c) ? "hidden" : ""}><h3>Next steps outside this demo</h3><ol><li>Confirm permission and availability with the origin school.</li><li>Agree on pickup or an eligible route with both campuses.</li><li>Pack accessories and bring the proposed Transfer Custody Record.</li></ol></section>${M.isActive(c) ? `<div class="form-actions"><button class="secondary" id="reviseRequest">Revise request</button><button class="secondary" id="withdrawRequest">Withdraw request</button></div>` : ""}`,
+      `<p class="notice">${c.sessionOnly ? "This record will not survive a refresh. " : ""}${!M.isActive(c) ? "Withdrawn record. Do not use this record for a handoff. Create a new request if needed." : c.type === "swap" ? "Swap proposal pending. This record does not verify a transfer, provide school approval, contact staff, or book transportation." : "Proposed browser-local record only. No transfer is verified, school approval provided, staff contacted, or transportation booked."}</p><div class="voucher"><div class="voucher-masthead"><b>ClusterShare</b><span>Transfer Custody Record<br>${esc(c.date)}</span></div><div class="routing-stamp"><span>ILLUSTRATIVE CAMPUS ROUTING</span><strong>${campusCodes[a.school] || "LOCAL"} → ${campusCodes[c.campus] || "LOCAL"}</strong><small>${c.method === "Self-pickup" ? "SELF-PICKUP / COORDINATION REQUIRED" : "DELIVERY / ARRANGEMENTS REQUIRED"}</small></div><h3>${esc(a.title)}</h3><p>${esc(a.qty)} · ${esc(a.assetId)}</p><dl class="voucher-details"><dt>From</dt><dd>${esc(a.school)} · Room ${esc(a.room)}</dd><dt>To</dt><dd>${esc(c.campus)} · Room ${esc(c.room)}</dd><dt>Educator</dt><dd>${esc(c.name)} · ${esc(c.department)}</dd><dt>Price</dt><dd>Free · $0</dd>${c.offer ? `<dt>Swap offer</dt><dd>${esc(c.offer)}</dd>` : ""}</dl><div class="voucher-status">${c.status === "withdrawn" ? "WITHDRAWN · DO NOT USE FOR HANDOFF" : c.type === "swap" ? "PENDING APPROVAL" : "REQUESTED · NOT DISPATCHED"}</div><div class="barcode">${voucherBarcode(hash)}</div><code>${esc(hash)}</code><p class="voucher-disclaimer">INDEPENDENT STUDENT DEMO · ILLUSTRATIVE TRACKING<br>Proposed browser-based demonstration. This record does not verify a transfer or provide school approval.</p></div><div class="form-actions"><button class="secondary" id="printVoucher">Print Transfer Custody Record</button><button class="primary" id="viewClaims">View your items →</button></div><section class="next-actions" ${!M.isActive(c) ? "hidden" : ""}><h3>Next steps outside this demo</h3><ol><li>Confirm permission and availability with the origin school.</li><li>Agree on pickup or an delivery or pickup arrangements with both campuses.</li><li>Pack accessories and bring the proposed Transfer Custody Record.</li></ol></section>${M.isActive(c) ? `<div class="form-actions"><button class="secondary" id="reviseRequest">Revise request</button><button class="secondary" id="withdrawRequest">Withdraw request</button></div>` : ""}`,
   );
   $("#reviseRequest")?.addEventListener("click", () => {
     if (ensureFresh()) openClaim(c.asset, c);
@@ -2313,7 +2248,7 @@ function reviewExisting(c) {
 $("#sources").onclick = () =>
   openDrawer(
     dh("The thinking behind the numbers.", "SOURCES & METHODOLOGY") +
-      `<p>The district directory substantiates school names. The other school-system policies are comparative examples, not Forsyth rules or evidence of the demonstration estimates. ClusterShare is an independent FBLA demonstration, not a district service.</p><a class="source" target="_blank" rel="noopener" href="https://apps.fcps.org/legal/documents/400-03">Frederick County Public Schools · Property relocation policy ↗<small>Public regulation describing school-system property relocation and equipment transfer requests.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.fcps.edu/get-involved/procurement-services/public-auction-and-surplus">Fairfax County Public Schools · Public auction & surplus ↗<small>Context for responsible surplus materials and equipment handling.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/inside-fcs/financial-transparency">Forsyth County Schools · Financial transparency ↗<small>Official local budget and finance references. These do not substantiate the simulated ClusterShare replacement-value totals.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/schools/about">Forsyth County Schools · School directory ↗<small>Local campus names used throughout this demonstration. The courier routes are illustrative, not official feeder patterns.</small></a><details class="photo-credits"><summary>Inventory photography credits</summary><p>Representative catalog photography, shown for this educational demonstration.</p><a class="source" target="_blank" rel="noopener" href="https://underwooddistributing.com/products/ti84plusceteacherpack">TI-84 Plus CE · Underwood Distributing ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.officeboffins.co.uk/bs-poly-stacking-school-chairs.html">Classroom chairs · Office Boffins ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.dynatech.de/vernier-go-direct-temperatursensor-teacherpack-gdx-tmp-tp-8x-gdx-tmp-ladestation-messbereich-40-1250c-0-250c-wireless-usb">Vernier probe kit · DynaTech ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.ebay.com/itm/126976250905">The Great Gatsby classroom lot · eBay seller ↗</a><a class="source" target="_blank" rel="noopener" href="https://manuals.plus/asin/B0CNTHVSGD">Mobile whiteboard · COSTWAY / Manuals+ ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/books/paperback-books/leveled-books-classroom-library2/p/TT160X/">Guided reading library · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/accessories/book-bins-set-of-12/p/LM453/">Book bins · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.schoolspecialty.com/frey-scientific-classroom-microscope-bundle-intermediate-2132612">Microscope kit · School Specialty ↗</a>${seed
+      `<p>The district directory substantiates school names. The other school-system policies are comparative examples, not Forsyth rules or evidence of the demonstration estimates. ClusterShare is an independent FBLA demonstration, not a district service.</p><a class="source" target="_blank" rel="noopener" href="https://apps.fcps.org/legal/documents/400-03">Frederick County Public Schools · Property relocation policy ↗<small>Public regulation describing school-system property relocation and equipment transfer requests.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.fcps.edu/get-involved/procurement-services/public-auction-and-surplus">Fairfax County Public Schools · Public auction & surplus ↗<small>Context for responsible surplus materials and equipment handling.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/inside-fcs/financial-transparency">Forsyth County Schools · Financial transparency ↗<small>Official local budget and finance references. These do not substantiate the simulated ClusterShare replacement-value totals.</small></a><a class="source" target="_blank" rel="noopener" href="https://www.forsyth.k12.ga.us/schools/about">Forsyth County Schools · School directory ↗<small>Local campus names used throughout this demonstration. School names do not imply an operating delivery service.</small></a><details class="photo-credits"><summary>Inventory photography credits</summary><p>Representative catalog photography, shown for this educational demonstration.</p><a class="source" target="_blank" rel="noopener" href="https://underwooddistributing.com/products/ti84plusceteacherpack">TI-84 Plus CE · Underwood Distributing ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.officeboffins.co.uk/bs-poly-stacking-school-chairs.html">Classroom chairs · Office Boffins ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.dynatech.de/vernier-go-direct-temperatursensor-teacherpack-gdx-tmp-tp-8x-gdx-tmp-ladestation-messbereich-40-1250c-0-250c-wireless-usb">Vernier probe kit · DynaTech ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.ebay.com/itm/126976250905">The Great Gatsby classroom lot · eBay seller ↗</a><a class="source" target="_blank" rel="noopener" href="https://manuals.plus/asin/B0CNTHVSGD">Mobile whiteboard · COSTWAY / Manuals+ ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/books/paperback-books/leveled-books-classroom-library2/p/TT160X/">Guided reading library · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.lakeshorelearning.com/products/accessories/book-bins-set-of-12/p/LM453/">Book bins · Lakeshore Learning ↗</a><a class="source" target="_blank" rel="noopener" href="https://www.schoolspecialty.com/frey-scientific-classroom-microscope-bundle-intermediate-2132612">Microscope kit · School Specialty ↗</a>${seed
         .filter((a) => a.source)
         .map(
           (a) =>
@@ -2321,7 +2256,7 @@ $("#sources").onclick = () =>
         )
         .join(
           "",
-        )}</details><div class="panel"><h2>Transparent by design</h2><p>School names reflect real Forsyth County campuses. Inventory listings, courier routes, asset values, and savings metrics are demonstration data, not actual school surplus. Product photographs are representative catalog images; quantities, condition, and accessories may differ. No accounts, payments, or real dispatches are created. Demo claims remain in this browser.</p></div>`,
+        )}</details><div class="panel"><h2>Transparent by design</h2><p>School names reflect real Forsyth County campuses. Inventory listings and replacement estimates are demonstration data, not actual school surplus. Product photographs are representative catalog images; quantities, condition, and accessories may differ. No accounts, payments, or real dispatches are created. Demo claims remain in this browser.</p></div>`,
   );
 $("#alerts").onclick = () => {
   if (!ensureFresh()) return;
@@ -2329,7 +2264,7 @@ $("#alerts").onclick = () => {
   persist();
   $(".bell i").hidden = true;
   const records=state.claims.slice().reverse().slice(0,5);
-  openDrawer(dh('Notifications','On this browser')+`<div class="notification-list">${records.length?records.map(c=>{const a=findAsset(c.asset);return `<details><summary><span>${esc(a?.title || 'Resource request')}<small>${M.requestLabel(c)} · ${esc(c.date)}</small></span></summary><p>${esc(c.campus)} · ${esc(c.method)}. ${M.isActive(c)?'School coordination is still required. No message or booking was sent.':'This local request was withdrawn.'}</p><a href="#items">Review in Your Items ↗</a></details>`;}).join(''):'<p>No local request activity yet.</p>'}<p class="fineprint">Only browser-local activity. No real approvals or deliveries.</p></div>`);
+  openDrawer(dh('Notifications','On this browser')+`<div class="notification-list">${records.length?records.map(c=>{const a=findAsset(c.asset);return `<details><summary><span>${esc(a?.title || 'Resource request')}<small>${M.requestLabel(c)} · ${esc(c.date)}</small></span></summary><p>${esc(c.campus)} · ${c.method === "Self-pickup" ? "Pick up" : "Delivery"}. ${M.isActive(c)?'School coordination is still required. No message or booking was sent.':'This local request was withdrawn.'}</p><a href="#items">Review in Your Items ↗</a></details>`;}).join(''):'<p>No local request activity yet.</p>'}<p class="fineprint">Only browser-local activity. No real approvals or deliveries.</p></div>`);
   drawer.classList.add('notification-drawer');
   drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>drawer.close());
 };

@@ -2185,3 +2185,81 @@ input[type="file"]::file-selector-button { font:inherit; padding:8px 12px; margi
 .footer-disclosure { color:var(--muted); font-size:12px; line-height:1.6; max-width:520px; }
 .voucher-masthead > span { max-width:230px; }
 @media(max-width:600px) { .transfer-art > span { font-size:9px; } }
+
+/* Requested rounded panels and resource outlines, using the existing palette. */
+.hero-showcase { border:1px solid var(--control-line); }
+.hero-showcase .showcase-photo { margin-top:0; }
+.resource-card { border:1px solid var(--control-line); border-radius:24px; background:var(--surface); overflow:hidden; }
+.resource-card .resource-media { border-radius:22px 22px 0 0; }
+.resource-grid .resource-card .resource-copy,.featured-grid .resource-card .resource-copy { padding:18px; }
+.resource-card .resource-copy { display:flex; flex-direction:column; gap:9px; }
+.resource-card .resource-copy .primary { margin-top:auto; }
+.resource-card .resource-copy .resource-status { align-self:flex-start; }
+.view-home .rounded-section { width:calc(100% - var(--page-gutter) * 2); max-width:1232px; margin:36px auto; padding:clamp(24px,4vw,48px); background:var(--surface-soft); border-radius:32px; }
+.view-home .finder { border:1px solid var(--control-line); }
+.finder > .section-heading,.workflow > .section-heading { display:block; text-align:center; margin-bottom:32px; }
+.finder .section-heading h2,.workflow .section-heading h2 { max-width:none; font-size:clamp(29px,3.2vw,42px); }
+.finder .preference-fields { margin-top:0; }
+.workflow .handoff-track { margin-top:10px; }
+#sharing .handoff-art * { animation:none; }
+#sharing.sharing-animate .handoff-art { animation:sharing-lift .8s cubic-bezier(.2,.7,.2,1) both; }
+#sharing.sharing-animate article:nth-of-type(2) .handoff-art { animation-delay:.16s; }
+#sharing.sharing-animate article:nth-of-type(3) .handoff-art { animation-delay:.32s; }
+#sharing .track-line { overflow:hidden; }
+#sharing.sharing-animate .track-line::after { content:""; position:absolute; inset:0; background:var(--primary); transform-origin:left; animation:sharing-connect 1.2s ease-out both; }
+#sharing .step-number { border-color:var(--blue); color:var(--blue); }
+@keyframes sharing-lift { from { opacity:.35; transform:translateY(22px) scale(.95); } to { opacity:1; transform:none; } }
+@keyframes sharing-connect { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+.inventory-sidebar { align-self:start; background:var(--surface-soft); border:1px solid var(--line); border-radius:24px; padding:22px 18px; }
+.inventory-sidebar h2 { font-size:24px; }
+.category-links { border-top:0; padding-top:0; }
+.category-links button.active { padding-left:12px; border-left:3px solid var(--primary); background:var(--surface); border-radius:0 10px 10px 0; text-decoration:none; }
+.request-cards.resource-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.request-card.managed-request { display:flex; flex-direction:column; gap:0; padding:0; }
+.request-card .resource-media { width:100%; aspect-ratio:4/3; }
+.request-card .resource-copy { flex:1; }
+.request-card h2 { font-size:23px; font-weight:600; }
+.request-card .resource-copy > p { font-size:14px; margin:0; }
+.request-destination { border-top:1px solid var(--line); padding-top:12px; margin-top:4px; }
+.request-destination p { margin:3px 0; }
+.impact-panel { background:var(--surface-soft); border:1px solid var(--line); border-radius:28px; padding:32px; margin:24px 0; }
+.impact-panel h2 { font-size:clamp(27px,3vw,36px); font-weight:600; margin-bottom:20px; }
+.impact-panel p { line-height:1.65; }
+.impact-request-summary { display:flex; flex-wrap:wrap; gap:32px 60px; margin-bottom:16px; }
+.impact-request-summary > div { display:grid; gap:5px; }
+.impact-request-summary strong { color:var(--blue); font-size:42px; font-weight:600; }
+.impact-request-summary span { font-size:15px; }
+.impact-panel .fineprint { color:var(--muted); margin:12px 0; }
+.impact-panel > .text-link { display:inline-block; min-height:44px; margin-top:14px; }
+.impact-panel .value-rows { margin-top:24px; }
+.impact-example { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); align-items:center; gap:36px; }
+.impact-example-photo { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:24px; }
+.impact-example-photo img { width:100%; height:240px; object-fit:contain; }
+.impact-example h3 { font-size:23px; font-weight:600; margin:10px 0; }
+.impact-free { color:var(--blue); font-weight:600; margin:12px 0; }
+.impact-method { margin:18px 0; }
+.impact-method summary { cursor:pointer; min-height:44px; padding:12px 0; font-weight:600; }
+body > footer { width:calc(100% - var(--page-gutter) * 2); max-width:1232px; border-radius:28px; margin:24px auto 28px; padding:32px; }
+@media(max-width:1100px) { .request-cards.resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:767px) {
+  .view-home .rounded-section { width:calc(100% - 32px); padding:24px; margin:24px auto; border-radius:24px; }
+  .request-cards.resource-grid { grid-template-columns:1fr; }
+  .impact-panel { padding:24px; border-radius:24px; }
+  .impact-example { grid-template-columns:1fr; gap:24px; }
+  .impact-request-summary { gap:20px; }
+  .impact-request-summary strong { font-size:36px; }
+  body > footer { width:calc(100% - 32px); border-radius:24px; padding:24px; }
+  #mobile-filter-content { background:var(--surface-soft); border-radius:20px; padding:20px; }
+}
+@media(prefers-reduced-motion:reduce) { #sharing.sharing-animate .handoff-art,#sharing.sharing-animate .track-line::after { animation:none; } }
+/* Keep the same finite entrance visible when mobile hides the illustrations. */
+#sharing.sharing-animate .handoff-art { animation:none; }
+#sharing.sharing-animate .handoff-track article { animation:sharing-lift .75s cubic-bezier(.2,.7,.2,1) both; }
+#sharing.sharing-animate .handoff-track article:nth-of-type(2) { animation-delay:.16s; }
+#sharing.sharing-animate .handoff-track article:nth-of-type(3) { animation-delay:.32s; }
+.resource-grid .resource-card,.featured-grid .resource-card { border:1px solid var(--control-line); }
+@media(max-width:767px) {
+  #sharing.sharing-animate .track-line::after { transform-origin:top; animation-name:sharing-connect-vertical; }
+}
+@keyframes sharing-connect-vertical { from { transform:scaleY(0); } to { transform:scaleY(1); } }
+@media(prefers-reduced-motion:reduce) { #sharing.sharing-animate .handoff-track article { animation:none; } }

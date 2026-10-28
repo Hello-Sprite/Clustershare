@@ -7,9 +7,9 @@ function renderItems() {
   if (!tabs.some(([key]) => key === itemsTab)) itemsTab = "requests";
   main.innerHTML =
     pageHeading(
-      "Your educator workspace",
+      "",
       "Your Items",
-      "Manage local requests, saved resources, and your listings.",
+      "",
       `<button class="secondary" data-list>List a resource ↗</button>`,
     ) +
     `<nav class="item-tabs" aria-label="Your items categories">${tabs.map(([key, label]) => `<a href="#items?tab=${key}" ${itemsTab === key ? 'aria-current="page"' : ""}>${label} <span>${key === "requests" ? state.claims.filter(M.isActive).length : key === "saved" ? allAssets().filter((a) => state.saved.some((id) => String(id) === String(a.id))).length : state.listings.length}</span></a>`).join("")}</nav>`;
@@ -28,14 +28,15 @@ function renderItems() {
           (filter === "active" ? M.isActive(c) : !M.isActive(c)),
       );
       $("#requestRecords").innerHTML = records.length
-        ? `<div class="request-table"><div class="request-table-head" aria-hidden="true"><span>Resource</span><span>Destination & handoff</span><span>Status</span><span>Next action</span></div>${records
+        ? `<div class="resource-grid request-cards">${records
             .map((c) => {
               const a = findAsset(c.asset);
-              return `<article class="managed-request"><div><h2>${esc(a?.title || "Resource unavailable")}</h2><p>${esc(c.date)}</p></div><div><p>${esc(c.campus)} · Room ${esc(c.room)}</p><p>${c.method === "Self-pickup" ? "Self-pickup" : "Proposed courier"}</p></div><span class="resource-status ${M.isActive(c) ? "pending" : ""}">${M.requestLabel(c)}</span><button class="secondary" data-voucher="${esc(c.id)}">${M.isActive(c) ? "Review & manage" : "View record"} ↗</button></article>`;
+              return `<article class="resource-card managed-request request-card"><div class="resource-media">${a ? `<button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button>` : ''}</div><div class="resource-copy"><h2>${esc(a?.title || "Resource unavailable")}</h2><p class="quantity">${esc(a?.qty || "")}</p><p>${esc(c.date)}</p><div class="request-destination"><p>${esc(c.campus)} · Room ${esc(c.room)}</p><p>${c.method === "Self-pickup" ? "Pick up" : "Delivery"}</p></div><span class="resource-status ${M.isActive(c) ? "pending" : ""}">${M.requestLabel(c)}</span><button class="primary" data-voucher="${esc(c.id)}">${M.isActive(c) ? "Review & manage" : "View record"} ↗</button></div></article>`;
             })
             .join("")}</div>`
         : '<p class="notice">No records in this status. <button class="text-link" id="show-all-requests">Show all records</button></p>';
       if ($("#show-all-requests")) $("#show-all-requests").onclick = () => { $("#requestStatus").value = "all"; draw(); };
+      bindCommon();
       bind("[data-voucher]", (el) =>
         reviewExisting(state.claims.find((c) => c.id === el.dataset.voucher)),
       );
@@ -157,8 +158,8 @@ function listResource(id = null) {
                 ) +
                 input("room", "Room", 'required maxlength="40"') +
                 input("teacher", "Educator name", 'required maxlength="100"') +
-                `<label for="list-kind">Transfer type</label><select id="list-kind" name="kind"><option value="transfer">Free transfer</option><option value="swap" ${draft.kind === "swap" ? "selected" : ""}>Equipment swap</option></select><label for="list-method">Handoff</label><select id="list-method" name="method"><option value="courier">Courier eligible / self-pickup</option><option value="pickup" ${draft.method === "pickup" ? "selected" : ""}>Self-pickup required</option></select><p class="field-help">Furniture requires self-pickup. Courier routes are proposed.</p>`
-              : `<dl class="quick-details"><dt>Resource</dt><dd>${esc(draft.title)}</dd><dt>Quantity</dt><dd>${esc(draft.count)} ${esc(draft.unit)} · ${esc(draft.condition)}</dd><dt>Origin</dt><dd>${esc(draft.school)} · Room ${esc(draft.room)}<br>${esc(draft.teacher)}</dd><dt>Transfer</dt><dd>${draft.kind === "swap" ? "Free equipment swap" : "Free resource"} · ${Number(draft.cat) === 3 || draft.method === "pickup" ? "Self-pickup" : "Proposed courier / pickup"}</dd><dt>Lot estimate</dt><dd>${money(Number(draft.count) * Number(draft.unitValue || 0))}</dd></dl><label for="list-notes">Condition details & included accessories (optional)</label><textarea id="list-notes" name="notes" maxlength="1000" placeholder="Describe wear, working condition, and what is included…">${esc(draft.notes)}</textarea>` +
+                `<label for="list-kind">Transfer type</label><select id="list-kind" name="kind"><option value="transfer">Free transfer</option><option value="swap" ${draft.kind === "swap" ? "selected" : ""}>Equipment swap</option></select><label for="list-method">Handoff</label><select id="list-method" name="method"><option value="courier">Pick up or delivery</option><option value="pickup" ${draft.method === "pickup" ? "selected" : ""}>Self-pickup required</option></select><p class="field-help">Furniture requires pickup. Arrange delivery with the school for other items.</p>`
+              : `<dl class="quick-details"><dt>Resource</dt><dd>${esc(draft.title)}</dd><dt>Quantity</dt><dd>${esc(draft.count)} ${esc(draft.unit)} · ${esc(draft.condition)}</dd><dt>Origin</dt><dd>${esc(draft.school)} · Room ${esc(draft.room)}<br>${esc(draft.teacher)}</dd><dt>Transfer</dt><dd>${draft.kind === "swap" ? "Free equipment swap" : "Free resource"} · ${Number(draft.cat) === 3 || draft.method === "pickup" ? "Self-pickup" : "Pick up or delivery"}</dd><dt>Lot estimate</dt><dd>${money(Number(draft.count) * Number(draft.unitValue || 0))}</dd></dl><label for="list-notes">Condition details & included accessories (optional)</label><textarea id="list-notes" name="notes" maxlength="1000" placeholder="Describe wear, working condition, and what is included…">${esc(draft.notes)}</textarea>` +
                 `<label for="list-photo-file">Resource photo (optional)</label><input id="list-photo-file" type="file" accept="image/jpeg,image/png,image/webp"><p class="field-help">Choose a photo from this device. It is resized and saved only in this browser. Without a photo, a category illustration is used.</p><div id="photo-preview">${draft.photo ? `<img src="${esc(draft.photo)}" alt="Selected resource photo"><button type="button" class="text-link" id="remove-photo">Remove photo</button>` : ''}</div><p id="photo-error" class="form-error" role="alert" hidden></p><p class="notice">Saved only in this browser. No publication, school approval, or real dispatch occurs.</p>`
         }<div class="form-actions">${stage > 1 ? '<button type="button" class="secondary" id="listingBack">Back</button>' : ""}<button type="submit" class="primary">${stage === 3 ? "Save local listing" : "Continue →"}</button></div></form>`,
     );
@@ -227,88 +228,21 @@ function listResource(id = null) {
   draw();
 }
 
-function localActivity() {
-  const events = [
-    ...state.listings.map((a) => ({
-      at: a.updatedAt || a.createdAt || 0,
-      label:
-        (a.archived ? "Archived " : a.updatedAt ? "Updated " : "Listed ") +
-        a.title,
-      detail: a.school,
-      date:
-        a.updatedAt || a.createdAt
-          ? new Intl.DateTimeFormat("en-US", {
-              dateStyle: "medium",
-              timeZone: "America/New_York",
-            }).format(new Date(a.updatedAt || a.createdAt))
-          : "Local listing",
-    })),
-    ...state.claims.map((c) => ({
-      at: c.updatedAt || c.createdAt || 0,
-      label:
-        (!M.isActive(c)
-          ? "Withdrew request for "
-          : c.type === "swap"
-            ? "Proposed a swap for "
-            : "Requested ") + (findAsset(c.asset)?.title || "a resource"),
-      detail: c.campus,
-      date: c.date,
-    })),
-  ]
-    .sort((a, b) => b.at - a.at)
-    .slice(0, 6);
-  return `<section class="local-activity"><div class="section-heading"><div><span class="eyebrow">In this browser</span><h2>Your local activity</h2></div><a href="#items" class="text-link">Review your items ↗</a></div><p>Listing and request records from this device. No live district feed or operational delivery is implied.</p>${events.length ? `<ol>${events.map((e) => `<li><div><strong>${esc(e.label)}</strong><p>${esc(e.detail)}</p></div><time>${esc(e.date)}</time></li>`).join("")}</ol>` : '<p class="notice">No local activity yet. <a href="#inventory">Find a resource to request ↗</a></p>'}</section>`;
-}
-function renderCourier() {
-  main.innerHTML =
-    pageHeading(
-      "Proposed handoff logistics",
-      "Handoff Planning",
-      "Agree where, when, and how to collect a resource. No transport or approval is booked by this prototype.",
-    ) +
-    `${handoffPreparation()}<section class="packing-guide"><h2>Plan the handoff together.</h2><ol><li><strong>Location & permission.</strong> Confirm availability, the collection point, and school approval with the origin campus.</li><li><strong>Timing & contact.</strong> Agree on a collection window and a contact person outside this demo.</li><li><strong>Transport.</strong> Arrange suitable self-pickup. For small equipment, ask whether a school-approved service exists; bulky furniture needs self-pickup.</li><li><strong>Pack & collect.</strong> Include accessories, protect fragile equipment, and bring identification and the proposed Transfer Custody Record.</li></ol><a class="text-link" href="#items">Review your requests & Transfer Custody Records ↗</a><p class="fineprint">Requests and Transfer Custody Records stay in this browser. They do not contact staff, approve transfers, or book transport.</p></section><details class="sample-routes"><summary>Optional sample transport routes</summary><p>Illustrative examples only. Confirm any actual service, eligibility, and timing with the school.</p><label class="route-filter">Proposed route<select id="routeChoice" aria-label="Proposed route"><option value="all">Both sample routes</option>${courierRoutes.map((r,i)=>`<option value="${i}">${r.day} · ${r.name}</option>`).join('')}</select></label><div class="schedule">${courierRoutes.map((r,i)=>`<section class="route-card" data-route="${i}"><span class="eyebrow">Sample route ${i?'B':'A'} · ${r.day}</span><h2>${r.name}</h2><ol>${r.stops.map(([time,school])=>`<li><time>${time}</time><span>${school}</span></li>`).join('')}</ol><p>Illustrative timing · Front-office handoff</p></section>`).join('')}</div></details>${localActivity()}`;
-  bindCommon();
-  bind("[data-voucher]", (el) =>
-    reviewExisting(state.claims.find((c) => c.id === el.dataset.voucher)),
-  );
-  $("#routeChoice").onchange = (e) =>
-    document
-      .querySelectorAll("[data-route]")
-      .forEach(
-        (el) =>
-          (el.hidden =
-            e.target.value !== "all" && el.dataset.route !== e.target.value),
-      );
-}
-function handoffPreparation() {
-  const requests = state.claims.filter(M.isActive);
-  return `<section class="handoff-preparation"><h2>Your handoff preparation</h2>${
-    requests.length
-      ? requests
-          .map((c) => {
-            const a = findAsset(c.asset);
-            return `<article><h3>${esc(a?.title || "Resource unavailable")}</h3><p>${esc(a?.school)} → ${esc(c.campus)}</p><p>${esc(M.routeEligibility(a, c, courierRoutes))}</p><button class="text-link" data-voucher="${esc(c.id)}">Review request & Transfer Custody Record ↗</button></article>`;
-          })
-          .join("")
-      : '<p class="notice">No active requests in this browser. <a href="#inventory">Find a resource to request ↗</a></p>'
-  }</section>`;
-}
 function renderLedger() {
-  main.innerHTML =
-    pageHeading(
-      "Community impact & methodology",
-      "Impact",
-      "Replacement value is a planning estimate—not a selling price, audited cash saving, or verified environmental benefit.",
-    ) +
-    `<div class="metrics local-metrics"><section><span>Resources in active local transfer requests</span><strong>${M.valueBreakdown([...state.listings,...seed],state).length}</strong><p>Recorded in this browser · not completed handoffs</p></section><section><span>Estimated replacement value requested</span><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><p>Planning estimates · not verified savings</p></section></div>${valueBreakdown()}<details class="illustrative-impact"><summary>Illustrative scenario · competition example</summary><p>These fixed example values do not come from your requests or measured district operations.</p><div class="example-values"><div><strong>$42,850</strong><span>Example replacement value</span></div><div><strong>3.2 days</strong><span>Example reallocation time</span></div></div></details><section class="proposed-measures"><h2>How success could be measured</h2><p><strong>Proposed measures — not currently tracked:</strong> completed handoffs confirmed by both schools, the share of requests fulfilled, and time from starting a search to finding a suitable resource. These would require a future pilot and participant confirmation; the demo does not collect or report these outcomes.</p></section><section class="methodology" id="methodology"><span class="eyebrow">How to read the numbers</span><h2>Useful estimates. Clear limits.</h2><div><article><h3>Quantity × unit estimate</h3><p>Each resource’s detail view shows its complete-lot estimate. For example, 8 probes × $80 each = $640. These are rounded planning estimates, not supplier quotes.</p></article><article><h3>Requests are not savings</h3><p>Only active transfer requests count toward the local total. Pending swaps and withdrawn requests are excluded. A request does not demonstrate a completed handoff.</p></article><article><h3>Independent student project</h3><p>School names ground the concept. Seeded listings, educators, rooms, and availability are simulated. No audited savings or environmental benefits are claimed.</p></article></div><button class="secondary" data-sources>Sources & photography credits ↗</button></section>`;
+  const rows = M.valueBreakdown([...state.listings, ...seed], state);
+  const example = seed[0];
+  main.innerHTML = pageHeading('', 'Impact', '') +
+    `<section class="impact-panel"><h2>Resources you've requested</h2><div class="impact-request-summary"><div><strong>${rows.length}</strong><span>${rows.length === 1 ? 'resource requested' : 'resources requested'}</span></div><div><strong>${money(M.requestedValue([...state.listings,...seed],state))}</strong><span>estimated replacement cost</span></div></div><p class="fineprint">Requests saved in this browser, not completed transfers or verified savings.</p>${valueBreakdown()}</section>` +
+    `<section class="impact-panel impact-example"><div class="impact-example-photo">${resourceImage(example)}</div><div><h2>Useful equipment, another classroom.</h2><h3>${esc(example.title)}</h3><p>${esc(example.qty)}</p><p class="impact-free">Free to request</p><p>A shared set could equip another classroom before new supplies are purchased.</p><p class="fineprint">Example listing · estimated replacement cost ${money(example.value)}.</p></div></section>` +
+    `<section class="impact-panel"><h2>How the value is counted</h2><p>Quantity × estimated cost per item. Only active transfer requests are included; pending swaps and withdrawn requests are excluded.</p><details class="impact-method"><summary>How success could be measured</summary><p>In a future pilot: completed handoffs confirmed by schools, requests fulfilled, and time to find a resource. These outcomes are not tracked in this demo.</p></details><button class="secondary" data-sources>Sources & methodology ↗</button></section>`;
   bindCommon();
 }
 function valueBreakdown() {
   const rows = M.valueBreakdown([...state.listings, ...seed], state);
-  return `<section class="value-breakdown"><h2>What these resources could cost to replace</h2><p>Active transfer requests only. Pending swaps and withdrawn records are excluded.</p>${rows.length ? `<div class="value-rows">${rows.map((a) => `<article><div><h3>${esc(a.title)}</h3><p>${a.count} × ${money(a.unitValue)} · ${esc(a.school)}</p></div><strong>${money(a.value)}</strong></article>`).join("")}</div>` : '<p class="notice">No active transfer requests in this browser. <a href="#inventory">Browse free resources ↗</a></p>'}<p class="value-total">Total requested value <strong>${money(M.requestedValue([...state.listings, ...seed], state))}</strong></p></section>`;
+  return rows.length ? `<div class="value-rows">${rows.map(a=>`<article><div><h3>${esc(a.title)}</h3><p>${esc(a.qty)} · ${esc(a.school)}</p></div><strong>${money(a.value)}</strong></article>`).join('')}</div>` : '<a class="text-link" href="#inventory">Browse free resources ↗</a>';
 }
 
 function ownerCard(a) {
   const request = requestFor(a.id);
-  return `<article class="resource-card managed-listing"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? 'Available for swap' : 'Free transfer'}</span></div><div class="resource-copy"><h2>${esc(a.title)}</h2><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><p class="owner-status">${a.archived ? 'Archived · hidden from inventory' : 'Listed in this browser'}</p><p>${request ? esc(M.requestLabel(request)) + ' · local demo record' : 'No active local request'}</p><div class="listing-tools"><button class="primary" data-edit="${esc(a.id)}" data-focus-key="edit-${esc(a.id)}">Edit listing</button><button class="secondary" data-archive="${esc(a.id)}">${a.archived ? 'Restore' : 'Archive'}</button>${request ? `<button class="text-link" data-owner-request="${esc(a.id)}">Review request</button>` : ''}</div></div></article>`;
+  return `<article class="resource-card managed-listing"><div class="resource-media"><button class="media-detail" data-detail="${esc(a.id)}" aria-label="View details: ${esc(a.title)}">${resourceImage(a)}</button><span class="free-tag">${a.swap ? 'Swap' : 'Free transfer'}</span></div><div class="resource-copy"><h2>${esc(a.title)}</h2><p class="quantity">${esc(a.qty)}</p><div class="resource-facts"><p>${esc(a.school)}</p><span>${esc(a.condition)}</span></div><p class="owner-status">${a.archived ? 'Archived · hidden from inventory' : 'Listed in this browser'}</p><p>${request ? esc(M.requestLabel(request)) + ' · local demo record' : 'No active local request'}</p><div class="listing-tools"><button class="primary" data-edit="${esc(a.id)}" data-focus-key="edit-${esc(a.id)}">Edit listing</button><button class="secondary" data-archive="${esc(a.id)}">${a.archived ? 'Restore' : 'Archive'}</button>${request ? `<button class="text-link" data-owner-request="${esc(a.id)}">Review request</button>` : ''}</div></div></article>`;
 }

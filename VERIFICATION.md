@@ -105,3 +105,13 @@ Limits: no physical print job or full screen-reader audit was performed. OS redu
 - Proposed Transfer Custody Record wording verified in a real test swap proposal. Actual pending approval and withdrawn request states remain unchanged.
 - Home, Inventory, Handoff Planning, Impact, Saved Resources, footer, and custody record checked at 390, 768, and 1440px: no document or dialog horizontal overflow. Light/dark styling, optional form field, empty-state actions, and clearly untracked proposed Impact measures reviewed.
 - Build, TypeScript, and all 34 tests pass, including existing contrast checks; diff whitespace check passes. No compatibility issue observed at tested widths. Physical printing and full screen-reader certification not performed. All new browser records were isolated to 127.0.0.1:5180; existing localhost and published-origin data were untouched.
+
+## Requested rounded layout refinements — October 28
+
+- Removed the specified homepage taglines, category strip, workflow introduction, and reuse/image section. Centered finder and workflow headings; rounded and outlined finder, preview, workflow, contribution/FAQ, and footer. Inventory and request cards have a one-pixel outline.
+- Unified Inventory categories and filters inside a rounded Filter by panel. Listing exchange badges say Swap; eligible resource handoff labels say Pick up or delivery. Pending and withdrawn request statuses are preserved.
+- Your Items requests now use photo cards with the existing date, destination, room, handoff method, status, and review action. Filtered cards still open resource details.
+- Removed Handoff Planning from navigation and rendering. Existing #courier links lead to Your Items. Delivery is a school-arranged transportation option with one concise no-booking qualification, while stored method values remain compatible with existing requests.
+- Impact now uses three rounded panels: local requests/estimates, an actual catalog example with a photograph, and a brief explanation with Sources & Methodology. No completed transfers, savings, or new activity were invented.
+- Workflow uses a once-per-entry CSS transform/opacity animation and a finite line animation, including mobile. Observer disconnects after activation; reduced motion skips animation. No new dependency.
+- Build, TypeScript, and all 34 tests pass. Home, Inventory, Your Items and Impact checked at 390, 768, 1440px with no horizontal overflow. Mobile filter controls and the finite mobile animation checked; console clear after final reload. All test requests were isolated to 127.0.0.1:5181 and no existing user records were changed.

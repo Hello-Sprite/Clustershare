@@ -19,16 +19,15 @@ Open http://localhost:5173/#home. Static deployment consists of the existing `di
 
 ## Experience
 
-The homepage progresses through a resource introduction with immediate search, featured resources, a connected three-stage handoff, reuse, and contribution with useful FAQ answers. Existing product photographs supply the visual composition. The visual identity uses cool slate, white, ink blue, and cobalt, with restrained coral and gold accents. IBM Plex Sans is served locally in four weights; system sans fonts provide fallback. These are product colors, not official county brand values.
+The homepage progresses through a resource introduction with immediate search, a resource finder, a connected three-stage handoff and contribution with useful FAQ answers. Existing product photographs supply the visual composition. The visual identity uses cool slate, white, ink blue, and cobalt, with restrained coral and gold accents. IBM Plex Sans is served locally in four weights; system sans fonts provide fallback. These are product colors, not official county brand values.
 
 Dedicated URL-based views:
 
-- `#home`: introduction and the homepage journey.
+- `#home`: introduction and the resource finder, animated sharing steps, and rounded FAQ section.
 - `#inventory`: searchable catalog, five categories, school/condition/handoff/type filters, not-yet-requested filter, active filter chips, sorting, and eight-item pagination.
 - `#items?tab=requests`: review transfer requests and pending swap proposals; reopen printable Transfer Custody Records.
 - `#items?tab=saved`: saved resources and save/unsave actions.
 - `#items?tab=listed`: resources created in this browser.
-- `#courier`: two illustrative route plans, handoff preparation guidance, and a feed of actual browser-local listing/request records.
 - `#ledger`: estimated replacement value and methodology, with local requested value kept separate.
 
 Browse state appears in inventory URLs and is retained while opening/closing details. Refresh and browser Back work across views. Details use native dialogs with Escape, keyboard containment, labeled headings, and focus restoration. One-time section entrances and the connected route animation respect reduced-motion settings.
@@ -73,7 +72,7 @@ See [VERIFICATION.md](VERIFICATION.md) for checks and limitations. Desktop/mobil
 
 ## Refined judging walkthrough
 
-Browse → filter by school and handoff → open a resource image → save → submit a three-step demo request → revise the room → print the proposed Transfer Custody Record → withdraw and observe availability/value update. Create a three-step listing, edit it, archive and restore it, then explain route coverage and the itemized Impact calculation. No real school is contacted.
+Browse → filter by school and handoff → open a resource image → save → submit a three-step demo request → revise the room → print the proposed Transfer Custody Record → withdraw and observe availability/value update. Create a three-step listing, edit it, archive and restore it, then explain pickup/delivery arrangements and the itemized Impact calculation. No real school is contacted.
 
 ## Earlier resource-first visual refinement (historical)
 
